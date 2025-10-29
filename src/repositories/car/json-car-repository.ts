@@ -5,8 +5,14 @@ import { readFile } from 'fs/promises'
 
 const ROOT_DIR = process.cwd()
 const JSON_CARS_FILE_PATH = resolve(ROOT_DIR, 'src', 'db', 'seed', 'cars.json')
+const SIMULATE_WAIT_IN_MS = 5000
 
 export class JsonCarRepository implements CarRepository {
+
+    private async simulateWait() {
+        if(SIMULATE_WAIT_IN_MS <= 0) return
+        await new Promise(resolve => setTimeout(resolve, SIMULATE_WAIT_IN_MS))
+    }
 
     private async readFromDisk(): Promise<CarModel[]>{
         const jsonContent = await readFile(JSON_CARS_FILE_PATH, 'utf-8')
@@ -16,11 +22,15 @@ export class JsonCarRepository implements CarRepository {
     }
 
     async findAll(): Promise<CarModel[]> {
+        await this.simulateWait()
+
         const cars = await this.readFromDisk()
         return cars
     }
 
     async findById(id: string): Promise<CarModel> {
+        await this.simulateWait()
+
         const cars = await this.findAll()
         const car = cars.find(car => car.id === id)
 
