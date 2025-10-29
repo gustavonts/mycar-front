@@ -1,0 +1,114 @@
+{
+    "cars": [
+        {
+            "id": "a7f3b2d6-2c1b-45f0-9e67-8b14b1e3f9aa",
+            "fipeCode": "001234-0",
+            "brand": "Ford",
+            "model": "Focus",
+            "version": "2.0 Titanium AT",
+            "year": "2012",
+            "plate": "ABC1D23",
+            "fuel": "Flex",
+            "price": "42000",
+            "mileage": "128000",
+            "color": "Prata",
+            "description": "Focus Titanium 2.0 completo, bem conservado, revisado e com IPVA pago.",
+            "images": [
+            "/images/focus_1.png",
+            "/images/focus_2.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-04-08T00:24:38.616Z",
+            "updatedAt": "2025-04-08T00:33:56.907Z"
+        },
+        {
+            "id": "b3a918b7-73b2-48c5-9f54-1b22b1fbb912",
+            "fipeCode": "001567-1",
+            "brand": "Chevrolet",
+            "model": "Cruze",
+            "version": "1.8 LTZ AT",
+            "year": "2014",
+            "plate": "DEF4G56",
+            "fuel": "Flex",
+            "price": "55000",
+            "mileage": "98000",
+            "color": "Branco",
+            "description": "Cruze LTZ 1.8 automático, completo, sem detalhes e todas as revisões em dia.",
+            "images": [
+            "/images/cruze_1.png",
+            "/images/cruze_2.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-04-08T00:24:38.616Z",
+            "updatedAt": "2025-04-08T00:33:56.907Z"
+        },
+        {
+            "id": "d8c4e1e9-7b47-4921-8e29-bfa33db28f3f",
+            "fipeCode": "003210-5",
+            "brand": "Volkswagen",
+            "model": "Golf",
+            "version": "1.4 TSI Highline",
+            "year": "2016",
+            "plate": "GHI7J89",
+            "fuel": "Gasolina",
+            "price": "73000",
+            "mileage": "87000",
+            "color": "Preto",
+            "description": "Golf Highline 1.4 TSI, excelente desempenho, todas as revisões feitas.",
+            "images": [
+            "/images/golf_1.png",
+            "/images/golf_2.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-04-08T00:24:38.616Z",
+            "updatedAt": "2025-04-08T00:33:56.907Z"
+        },
+        {
+            "id": "e2d9f841-89cc-4d82-bb14-47f8a73f2a56",
+            "fipeCode": "004321-7",
+            "brand": "Honda",
+            "model": "Civic",
+            "version": "2.0 EXL CVT",
+            "year": "2018",
+            "plate": "JKL2M34",
+            "fuel": "Flex",
+            "price": "95000",
+            "mileage": "65000",
+            "color": "Cinza",
+            "description": "Civic 2.0 EXL com teto solar e multimídia original, impecável.",
+            "images": [
+            "/images/civic_1.png",
+            "/images/civic_2.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-04-08T00:24:38.616Z",
+            "updatedAt": "2025-04-08T00:33:56.907Z"
+        },
+        {
+            "id": "f5b92c9e-4452-4fa0-bd37-9272b2e4b930",
+            "fipeCode": "005678-2",
+            "brand": "Toyota",
+            "model": "Corolla",
+            "version": "2.0 Altis CVT",
+            "year": "2019",
+            "plate": "NOP9Q87",
+            "fuel": "Flex",
+            "price": "108000",
+            "mileage": "58000",
+            "color": "Prata",
+            "description": "Corolla Altis 2.0 completo, conforto e confiabilidade, único dono.",
+            "images": [
+            "/images/corolla_1.png",
+            "/images/corolla_2.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-04-08T00:24:38.616Z",
+            "updatedAt": "2025-04-08T00:33:56.907Z"
+        }
+    ]
+}
