@@ -8,12 +8,12 @@ type CarHeadingProps = {
 
 export default function CarHeading({children, url, as: Tag = 'h2'}: CarHeadingProps) {
     const headingClassesMap = {
-        h1: "text-2xl/tight font-extrabold sm:text-4xl/tight sm:font-extrabold",
-        h2: "text-2xl/tight font-extrabold sm:text-4xl/tight sm:font-extrabold"
+        h1: "text-2xl/tight sm:text-4xl/tight font-extrabold",
+        h2: "text-2xl/tight font-bold"
     }
     return (
         <Tag className={headingClassesMap[Tag]}>
-            <Link href={url}>{children}</Link>
+            <Link className='hover:text-slate-600 transition' href={url}>{children}</Link>
         </Tag>
     )
 }
