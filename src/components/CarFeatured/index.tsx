@@ -1,9 +1,12 @@
 import CarCoverImage from "../CarCoverImage";
-import CarHeading from "../CarHeading";
+import { CarSumary } from "../CarSumary";
+import { findAllPublicCars } from "@/lib/car/queries";
 
-export function CarFeatured(){
-    const id = '1'
-    const carLink =  `/car/${id}`
+export async function CarFeatured(){
+    const cars = await findAllPublicCars()
+    const car = cars[0]
+    
+    const carLink =  `/car/${car.id}`
 
     return (
         <section className="
@@ -20,18 +23,21 @@ export function CarFeatured(){
                     {
                         width: 1200,
                         height: 720,
-                        src: "/images/focus.png",
-                        alt: 'Alt da Imagem',
+                        src: car.images[0],
+                        alt: car.model,
                         priority: true
                     }
                 } />
-            <div className="flex flex-col gap-4 sm:justify-center">
-                <time className="text-slate-600 text-sm/tight" dateTime="2025-11-20">04/11/2025 10:00</time>
-                <CarHeading url={carLink} as='h1'>Ford Focus</CarHeading>
-                <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil quis ipsum dolores ad ipsa maiores aut atque itaque earum. Numquam culpa saepe minus, reiciendis quaerat ea nemo commodi inventore vel!
-                </p>
-            </div>
+            <CarSumary 
+                carHeading={"h1"} 
+                carLink={carLink} 
+                createdAt={car.createdAt} 
+                brand={car.brand} 
+                model={car.model} 
+                version={car.version} 
+                year={car.year} 
+                price={car.price} 
+                description={car.description} />
         </section>
     )
 }

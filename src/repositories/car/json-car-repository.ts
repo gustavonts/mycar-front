@@ -21,17 +21,17 @@ export class JsonCarRepository implements CarRepository {
         return cars
     }
 
-    async findAll(): Promise<CarModel[]> {
+    async findAllPublic(): Promise<CarModel[]> {
         await this.simulateWait()
 
         const cars = await this.readFromDisk()
-        return cars
+        return cars.filter(car => car.active)
     }
 
     async findById(id: string): Promise<CarModel> {
         await this.simulateWait()
 
-        const cars = await this.findAll()
+        const cars = await this.findAllPublic()
         const car = cars.find(car => car.id === id)
 
         if(!car) {
