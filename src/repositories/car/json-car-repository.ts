@@ -5,7 +5,7 @@ import { readFile } from 'fs/promises'
 
 const ROOT_DIR = process.cwd()
 const JSON_CARS_FILE_PATH = resolve(ROOT_DIR, 'src', 'db', 'seed', 'cars.json')
-const SIMULATE_WAIT_IN_MS = 0
+const SIMULATE_WAIT_IN_MS = 10000
 
 export class JsonCarRepository implements CarRepository {
 
