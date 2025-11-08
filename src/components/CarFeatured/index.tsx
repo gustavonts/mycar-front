@@ -1,9 +1,9 @@
 import CarCoverImage from "../CarCoverImage";
 import { CarSumary } from "../CarSumary";
-import { findAllPublicCars } from "@/lib/car/queries";
+import { findAllPublicCarsCached } from "@/lib/car/queries";
 
 export async function CarFeatured(){
-    const cars = await findAllPublicCars()
+    const cars = await findAllPublicCarsCached()
     const car = cars[0]
     
     const carLink =  `/car/${car.id}`

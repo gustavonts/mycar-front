@@ -1,9 +1,9 @@
 import CarCoverImage from "../CarCoverImage"
 import { CarSumary } from "../CarSumary"
-import { findAllPublicCars } from "@/lib/car/queries"
+import { findAllPublicCarsCached } from "@/lib/car/queries"
 
 export async function CarsList() {
-    const cars = await findAllPublicCars()
+    const cars = await findAllPublicCarsCached()
 
     return (
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-16">

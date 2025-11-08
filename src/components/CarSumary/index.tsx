@@ -1,5 +1,5 @@
-import { formatDatetime, formatRelativeDate } from "@/utils/format-datetime";
 import CarHeading from "../CarHeading";
+import { CarDate } from "../CarDate";
 
 type CarSumaryProps = {
     carHeading: 'h1' | 'h2'
@@ -16,7 +16,7 @@ type CarSumaryProps = {
 export async function CarSumary({carHeading, carLink, createdAt, brand, model, version, year, price, description} : CarSumaryProps) {
     return (
          <div className="flex flex-col gap-4 sm:justify-center">
-            <time className="text-slate-600 text-sm/tight" dateTime={createdAt}>{formatDatetime(createdAt)} - {formatRelativeDate(createdAt)}</time>
+            <CarDate dateTime={createdAt} />
             <CarHeading url={carLink} as={carHeading}>
                 <div>
                     {brand} {model} {version} {year}

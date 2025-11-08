@@ -5,7 +5,7 @@ import { readFile } from 'fs/promises'
 
 const ROOT_DIR = process.cwd()
 const JSON_CARS_FILE_PATH = resolve(ROOT_DIR, 'src', 'db', 'seed', 'cars.json')
-const SIMULATE_WAIT_IN_MS = 10000
+const SIMULATE_WAIT_IN_MS = 0
 
 export class JsonCarRepository implements CarRepository {
 
@@ -22,15 +22,11 @@ export class JsonCarRepository implements CarRepository {
     }
 
     async findAllPublic(): Promise<CarModel[]> {
-        await this.simulateWait()
-
         const cars = await this.readFromDisk()
         return cars.filter(car => car.active)
     }
 
     async findById(id: string): Promise<CarModel> {
-        await this.simulateWait()
-
         const cars = await this.findAllPublic()
         const car = cars.find(car => car.id === id)
 

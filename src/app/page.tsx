@@ -6,11 +6,8 @@ import { CarFeatured } from "@/components/CarFeatured"
 export default async function HomePage() {
   return (
     <div>
-      <Suspense fallback={<SpinLoader/>}>
+      <Suspense fallback={<SpinLoader className="min-h-20 mb-16 "/>}>
         <CarFeatured />
-      </Suspense>
-      
-      <Suspense fallback={<SpinLoader/>}>
         <CarsList />
       </Suspense>
     </div>
