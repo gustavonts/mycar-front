@@ -5,12 +5,12 @@ export type CarModel = {
     model: string
     version: string
     year: string
-    plate?: string
+    plate?: string | null
     fuel: string
     price: string
     mileage: string
     color: string
-    description: string
+    description?: string | null
     images: string[]
     active: boolean
     user: string
