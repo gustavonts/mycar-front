@@ -1,4 +1,4 @@
-import { findPostByIdCached } from "@/lib/car/queries"
+import { findCarByIdCached } from "@/lib/car/queries"
 import Image from "next/image"
 import CarHeading from "../CarHeading"
 import { CarDate } from "../CarDate"
@@ -9,7 +9,7 @@ type SingleCarProps = {
 }
 
 export async function SingleCar({id}: SingleCarProps) {
-    const car = await findPostByIdCached(id)
+    const car = await findCarByIdCached(id)
     return (
         <article className="mb-16">
             <header className="group flex flex-col gap-4 mb-4">

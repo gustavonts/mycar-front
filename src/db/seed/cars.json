@@ -170,7 +170,7 @@
                 "/images/sandero_1.png",
                 "/images/sandero_rs_2.png"
             ],
-            "active": true,
+            "active": false,
             "user": "Gustavo Guedes",
             "createdAt": "2025-04-09T10:00:00.000Z",
             "updatedAt": "2025-04-09T10:15:30.000Z"
@@ -214,7 +214,7 @@
                 "/images/jetta_1.png",
                 "/images/jetta_tsi_2.png"
             ],
-            "active": true,
+            "active": false,
             "user": "Gustavo Guedes",
             "createdAt": "2025-04-09T12:00:00.000Z",
             "updatedAt": "2025-04-09T12:30:45.000Z"

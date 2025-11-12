@@ -14,11 +14,7 @@ export const carsTable = sqliteTable('cars', {
     mileage: text("mileage").notNull(),
     color: text("color").notNull(),
     description: text("description"),
-
-    // 🔧 corrigido — o "mode: 'text'" era inválido.
-    // Agora o campo aceita array como JSON (sem erro no insert).
     images: text("images").$type<string>().notNull(),
-
     active: integer("active", { mode: 'boolean' }).notNull(),
     user: text("user").notNull(),
     createdAt: text("created_at").notNull(),

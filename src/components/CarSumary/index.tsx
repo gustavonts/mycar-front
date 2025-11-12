@@ -10,7 +10,7 @@ type CarSumaryProps = {
     version: string
     year: string
     price: string
-    description: string
+    description?: string | null
 }
 
 export async function CarSumary({carHeading, carLink, createdAt, brand, model, version, year, price, description} : CarSumaryProps) {

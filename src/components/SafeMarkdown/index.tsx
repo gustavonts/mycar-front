@@ -3,7 +3,7 @@ import rehypeSanitize from 'rehype-sanitize'
 import remarkGfm from 'remark-gfm'
 
 type SafeMarkdownProps = {
-    markdown: string
+    markdown?: string | null
 }
 
 export function SafeMarkdown({markdown}: SafeMarkdownProps) {

@@ -3,6 +3,7 @@ import { CarRepository } from "./car-repository";
 import { drizzleDb } from "@/db/drizzle";
 import { carsTable } from "@/db/drizzle/schemas";
 import { desc } from "drizzle-orm";
+import { parseImages } from "@/utils/parse-image";
 
 export class DrizzleCarRepository implements CarRepository {
     async findAllPublic(): Promise<CarModel[]> {
@@ -11,20 +12,60 @@ export class DrizzleCarRepository implements CarRepository {
             where: (cars, {eq}) => eq(cars.active, true)
         })
 
-        return cars
+        return cars.map((car) => ({
+            ...car,
+            images: parseImages(car.images),
+        }));
     }
 
     async findByIdPublic(id: string): Promise<CarModel> {
-        throw new Error("Method not implemented.");
+        const car = await drizzleDb.query.cars.findFirst({
+            where: (cars, {eq, and}) => and(eq(cars.active, true), eq(cars.id, id)),
+
+        })
+
+        if (!car) throw new Error('Carro não encontrado para ID')
+
+        return {
+            ...car,
+            images: parseImages(car.images),
+        };
     }
     
     async findAll(): Promise<CarModel[]> {
-        throw new Error("Method not implemented.");
+        const cars = await drizzleDb.query.cars.findMany({
+            orderBy: (cars, {desc}) => desc(cars.createdAt)
+        })
+
+        return cars.map((car) => ({
+            ...car,
+            images: parseImages(car.images),
+        }));
     }
 
     async findById(id: string): Promise<CarModel> {
-        throw new Error("Method not implemented.");
-    }
+        const car = await drizzleDb.query.cars.findFirst({
+            where: (cars, {eq}) => eq(cars.id, id),
 
+        })
+
+        if (!car) throw new Error('Carro não encontrado para ID')
+
+        return {
+            ...car,
+            images: parseImages(car.images),
+        };
+    }
     
 }
+
+(async () => {
+    // const repo = new DrizzleCarRepository()
+    // const cars = await repo.findByIdPublic("e6a7b8c9-1234-5678-90ab-cdef01234567")
+
+    // console.log(cars)
+
+    // cars.forEach(car => console.log(car.id, car.brand, car.active))
+
+    // await repo.findByIdPublic("b2c3d4e5-f6a7-8901-2345-lkmfnvgo30874")
+})()

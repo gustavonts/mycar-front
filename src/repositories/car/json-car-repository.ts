@@ -42,5 +42,3 @@ export class JsonCarRepository implements CarRepository {
         return car
     }
 }
-
-export const carRepository: CarRepository = new JsonCarRepository()

@@ -10,8 +10,8 @@ export type CarModel = {
     price: string
     mileage: string
     color: string
-    description?: string | null
-    images: string[]
+    description: string | null
+    images: string | string[];
     active: boolean
     user: string
     createdAt: string
