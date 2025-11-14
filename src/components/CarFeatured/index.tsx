@@ -1,6 +1,6 @@
 import CarCoverImage from "../CarCoverImage";
 import { CarSumary } from "../CarSumary";
-import { findAllPublicCarsCached } from "@/lib/car/queries";
+import { findAllPublicCarsCached } from "@/lib/car/queries/public";
 
 export async function CarFeatured(){
     const cars = await findAllPublicCarsCached()

@@ -1,6 +1,6 @@
 import { SingleCar } from "@/components/SingleCar";
 import { SpinLoader } from "@/components/SpinLoader";
-import { findCarByIdCached } from "@/lib/car/queries";
+import { findPublicCarByIdCached } from "@/lib/car/queries/public";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -11,7 +11,7 @@ type CarIdPageProps = {
 
 export async function generateMetadata({params}: CarIdPageProps): Promise<Metadata> {
     const { id } = await params;
-    const car = await findCarByIdCached(id)
+    const car = await findPublicCarByIdCached(id)
 
     return {
         title: car.brand + ' ' + car.model + ' - ' + car.plate,

@@ -4,9 +4,12 @@ import { drizzleDb } from "@/db/drizzle";
 import { carsTable } from "@/db/drizzle/schemas";
 import { desc } from "drizzle-orm";
 import { parseImages } from "@/utils/parse-image";
+import { asyncDelay } from "@/utils/async-delay";
+import { SIMULATE_WAIT_IN_MS } from "@/lib/constants";
 
 export class DrizzleCarRepository implements CarRepository {
     async findAllPublic(): Promise<CarModel[]> {
+        await asyncDelay(SIMULATE_WAIT_IN_MS, true)
         const cars = await drizzleDb.query.cars.findMany({
             orderBy: (cars, {desc}) => desc(cars.createdAt),
             where: (cars, {eq}) => eq(cars.active, true)
@@ -19,6 +22,7 @@ export class DrizzleCarRepository implements CarRepository {
     }
 
     async findByIdPublic(id: string): Promise<CarModel> {
+        await asyncDelay(SIMULATE_WAIT_IN_MS, true)
         const car = await drizzleDb.query.cars.findFirst({
             where: (cars, {eq, and}) => and(eq(cars.active, true), eq(cars.id, id)),
 
@@ -33,6 +37,7 @@ export class DrizzleCarRepository implements CarRepository {
     }
     
     async findAll(): Promise<CarModel[]> {
+        await asyncDelay(SIMULATE_WAIT_IN_MS, true)
         const cars = await drizzleDb.query.cars.findMany({
             orderBy: (cars, {desc}) => desc(cars.createdAt)
         })
@@ -44,6 +49,7 @@ export class DrizzleCarRepository implements CarRepository {
     }
 
     async findById(id: string): Promise<CarModel> {
+        await asyncDelay(SIMULATE_WAIT_IN_MS, true)
         const car = await drizzleDb.query.cars.findFirst({
             where: (cars, {eq}) => eq(cars.id, id),
 
