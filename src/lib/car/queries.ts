@@ -6,7 +6,7 @@ export const findAllPublicCarsCached  = cache(async () =>
     await carRepository.findAllPublic()
 )
 
-export const findCarByIdCached   = cache(async (id: string) => {
+export const findCarByIdCached  = cache(async (id: string) => {
     const car =  await carRepository.findByIdPublic(id).catch(() => undefined)
 
     if(!car) {
