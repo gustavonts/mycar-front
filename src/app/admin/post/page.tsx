@@ -1,4 +1,4 @@
-import CarsListAdmin from "@/components/CarListadmin"
+import CarsListAdmin from "@/components/admin/CarListAdmin"
 import { SpinLoader } from "@/components/SpinLoader"
 import { findAllCarsAdmin } from "@/lib/car/queries/admin"
 import { Metadata } from "next"

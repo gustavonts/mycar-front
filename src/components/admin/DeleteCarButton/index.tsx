@@ -4,6 +4,7 @@ import { deleteCarAction } from "@/actions/car/delete-car-action"
 import { Dialog } from "@/components/Dialog"
 import { Trash2Icon } from "lucide-react"
 import { useState, useTransition } from "react"
+import { toast } from "react-toastify"
 
 type DeleteCarbuttonProps = {
     id: string
@@ -18,12 +19,21 @@ export function DeleteCarbutton({id, brand, model}: DeleteCarbuttonProps) {
 
     function handleClick() {
         setShowDialog(true)
-        if(!confirm('Tem Certeza?')) return
+    }
+
+    function handleConfirm() {
+        toast.dismiss()
 
         startTransition(async () => {
             const result = await deleteCarAction(id)
-            alert('O result é:' + result)
-        })
+            setShowDialog(false)
+            
+            if(result.error) {
+                toast.error(result.error)
+                return
+            }  
+            toast.success('Carro apagado com sucesso!')
+        })      
     }
 
     return (
@@ -35,7 +45,15 @@ export function DeleteCarbutton({id, brand, model}: DeleteCarbuttonProps) {
                 disabled={isPending}>
                 <Trash2Icon/>
             </button>
-            {showDialog && <Dialog title={"Apagar carro?"} content={`Tem Certeza que deseja apagar o carro ${brand} ${model}`} isVisible={showDialog}/>}
+            {showDialog 
+                && 
+                <Dialog 
+                title={"Apagar carro?"}
+                content={`Tem certeza que deseja apagar o carro ${brand} ${model}?`}
+                isVisible={showDialog}
+                onCancel={() => setShowDialog(false)}
+                onConfirm={handleConfirm} 
+                disabled={isPending}/>}
         </>
     )
 }

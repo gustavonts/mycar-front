@@ -1,9 +1,13 @@
 import CarCoverImage from "../CarCoverImage"
 import { CarSumary } from "../CarSumary"
 import { findAllPublicCarsCached } from "@/lib/car/queries/public"
+import ErrorMessage from "../ErrorMessage"
 
 export async function CarsList() {
     const cars = await findAllPublicCarsCached()
+
+    if(cars.length <= 0) return <ErrorMessage contentTitle={"Ops! "} content={"Ainda não criamos nenhum Carro!"} />
+    
 
     return (
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-16">

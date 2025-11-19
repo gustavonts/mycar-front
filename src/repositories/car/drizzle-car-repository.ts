@@ -1,8 +1,6 @@
 import { CarModel } from "@/models/car/car-model";
 import { CarRepository } from "./car-repository";
 import { drizzleDb } from "@/db/drizzle";
-import { carsTable } from "@/db/drizzle/schemas";
-import { desc } from "drizzle-orm";
 import { parseImages } from "@/utils/parse-image";
 import { asyncDelay } from "@/utils/async-delay";
 import { SIMULATE_WAIT_IN_MS } from "@/lib/constants";

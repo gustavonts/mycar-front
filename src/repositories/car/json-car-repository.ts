@@ -40,4 +40,15 @@ export class JsonCarRepository implements CarRepository {
 
         return car
     }
+
+     async findById(id: string): Promise<CarModel> {
+        const cars = await this.findAllPublic()
+        const car = cars.find(car => car.id === id)
+
+        if(!car) {
+            throw new Error('Carro não encontrado')
+        }
+
+        return car
+    }
 }

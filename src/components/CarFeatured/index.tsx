@@ -1,9 +1,13 @@
 import CarCoverImage from "../CarCoverImage";
 import { CarSumary } from "../CarSumary";
 import { findAllPublicCarsCached } from "@/lib/car/queries/public";
+import ErrorMessage from "../ErrorMessage";
 
 export async function CarFeatured(){
     const cars = await findAllPublicCarsCached()
+
+    if(cars.length <= 0) return <ErrorMessage contentTitle={"Ops! "} content={"Ainda não criamos nenhum Carro!"} />
+
     const car = cars[0]
     
     const carLink =  `/car/${car.id}`
