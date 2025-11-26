@@ -11,7 +11,7 @@ export default async function CarsListAdmin() {
 
     return <div className="mb-16">
         {cars.map(car => {
-            return <div key={car.id} className={`py-2 px-2 ${car.active ? '' : 'bg-slate-300'} flex gap-2 items-center justify-between`}>
+            return <div key={car.id} className={`py-2 px-2 ${car.active ? '' : 'bg-slate-300'} flex gap-2 items-center justify-between hover:bg-slate-200`}>
                 <Link href={`/admin/car/${car.id}`}>
                     {car.brand} {car.model}
                 </Link>

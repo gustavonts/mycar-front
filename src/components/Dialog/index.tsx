@@ -1,5 +1,7 @@
 'use client'
 
+import { Button } from "../Button"
+
 type DialogProps = {
     isVisible?: boolean
     title: string
@@ -32,19 +34,19 @@ export function Dialog({isVisible = false, title, content, onCancel, onConfirm, 
                     {content}
                 </div>
                 <div className="flex items-center justify-around">
-                    <button 
-                    className="bg-slate-300 text-slate-950 hover:bg-slate-400 transition flex items-center justify-center py-2 px-4 rounded-lg cursor-pointer disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed"
+                    <Button 
                     autoFocus
                     onClick={handleCancel}
-                    disabled={disabled}>
+                    disabled={disabled}
+                    variant="ghost">
                         Cancelar
-                    </button>
-                    <button
-                    className="bg-blue-500 text-slate-100 hover:bg-blue-400 transition flex items-center justify-center py-2 px-4 rounded-lg cursor-pointer disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed"
+                    </Button>
+                    <Button
                     onClick={onConfirm}
-                    disabled={disabled}>
+                    disabled={disabled}
+                    variant="default">
                         OK
-                    </button>
+                    </Button>
                 </div>
             </div>
         </div>
