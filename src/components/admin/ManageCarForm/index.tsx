@@ -4,7 +4,8 @@ import { Button } from "@/components/Button";
 import { InputCheckbox } from "@/components/inputs/InputCheckbox";
 import { InputText } from "@/components/inputs/InputText";
 import { MarkdownEditor } from "@/components/MarkdownEditor";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
+import { ImageUploader } from "../ImageUploader";
 
 export function ManageCarForm() {
 
@@ -13,7 +14,10 @@ export function ManageCarForm() {
     return (
         <form action="" className="mb-16">
             <div className="flex flex-col gap-6">
+                
                 <InputText labelText="Nome" placeholder="Digite seu nome" id={'nome'}/>
+
+                <ImageUploader />
 
                 <MarkdownEditor labelText="Conteúdo"  disabled={false} textAreaName="content" value={contentValue} setValue={setContentValue}/>
 
