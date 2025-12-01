@@ -19,7 +19,7 @@ export function ManageCarForm() {
 
                 <ImageUploader />
 
-                <MarkdownEditor labelText="Conteúdo"  disabled={false} textAreaName="content" value={contentValue} setValue={setContentValue}/>
+                <MarkdownEditor labelText="Conteúdo" disabled={false} textAreaName="content" value={contentValue} setValue={setContentValue}/>
 
                 <InputCheckbox labelText="Input Teste"/>
                 <div className="mt-4">
