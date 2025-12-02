@@ -14,7 +14,8 @@ export function InputCheckbox({labelText = '', type = 'checkbox', ...props}: Inp
            <input {...props}  
             className={`w-4 h-4 outline-none focus:ring-2 focus:ring-blue-500 ${props.className}`} 
             id={id}
-            type={type}/> 
+            type={type}
+            /> 
             {labelText && (
                 <label className={'text-sm'} htmlFor={id}>
                     {labelText}

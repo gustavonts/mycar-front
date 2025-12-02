@@ -64,7 +64,7 @@ export function ImageUploader() {
 
     return (
         <div className="flex flex-col gap-4 py-4">
-            <Button type="button" className="self-start" onClick={handleChooseFile}>
+            <Button type="button" className="self-start" onClick={handleChooseFile} disabled={isUploading}>
                 <ImageUpIcon />
                 Enviar uma imagem
             </Button>
@@ -76,7 +76,7 @@ export function ImageUploader() {
                 </div>
             )}
 
-            <input ref={fileInputRef} className="hidden" name="file" type="file" accept="image/*" onChange={handleChange}/>
+            <input ref={fileInputRef} className="hidden" name="file" type="file" accept="image/*" onChange={handleChange} disabled={isUploading}/>
         </div>
     )
 }

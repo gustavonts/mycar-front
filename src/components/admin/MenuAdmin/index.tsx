@@ -44,11 +44,11 @@ export default function MenuAdmin() {
                 <HouseIcon />
                 Home
             </a>
-            <Link href="/admin/post" className={linkClasses}>
+            <Link href="/admin/car" className={linkClasses}>
                 <CarFrontIcon />
                 Cars
             </Link>
-            <Link href="/admin/post/new" className={linkClasses}>
+            <Link href="/admin/car/new" className={linkClasses}>
                 <PlusIcon />
                 Criar Veículo
             </Link>

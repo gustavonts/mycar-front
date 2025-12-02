@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: 'Car Admin'
 }
 
-export default async function AdminPostPage() {
+export default async function AdminCarPage() {
     return <Suspense fallback={<SpinLoader className="mb-16"/>}>
         <CarsListAdmin/>
     </Suspense>
