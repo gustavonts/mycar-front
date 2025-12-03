@@ -3,10 +3,11 @@
 import { Button } from "@/components/Button";
 import { InputText } from "@/components/inputs/InputText";
 import { MarkdownEditor } from "@/components/MarkdownEditor";
-import { useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { ImageUploader } from "../ImageUploader";
 import { InputCheckbox } from "@/components/inputs/InputCheckbox";
 import { PublicCar } from "@/dto/car/dto";
+import { createCarAction } from "@/actions/car/create-car-action";
 
 type ManageCarFormProps = {
     publicCar?: PublicCar
@@ -16,8 +17,19 @@ export function ManageCarForm({publicCar}: ManageCarFormProps) {
 
     const [contentValue, setContentValue] = useState(publicCar?.description || '')
 
+    const initialState = {
+        formState: publicCar,
+        errors: []
+    }
+
+    const [state, action, isPending] = useActionState(createCarAction, initialState)
+
+    useEffect(() => {
+        console.log(state.numero)
+    }, [state.numero])
+
     return (
-        <form action="" className="mb-16">
+        <form action={action} className="mb-16">
             <div className="flex flex-col gap-6">
                 
                 <InputText labelText="ID" name='id' placeholder="ID gerado automaticamente" type="text" defaultValue={publicCar?.id || ''} readOnly/>

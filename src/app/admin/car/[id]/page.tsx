@@ -1,5 +1,5 @@
 import { ManageCarForm } from "@/components/admin/ManageCarForm"
-import { makePublicCar } from "@/dto/car/dto"
+import { makePublicCarFromDb } from "@/dto/car/dto"
 import { findCarByIdAdmin } from "@/lib/car/queries/admin"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
@@ -20,7 +20,7 @@ export default async function AdminCarIdPage({params}: AdminCarIdPageProps) {
     const {id} = await params
     const car = await findCarByIdAdmin(id).catch()
 
-    const publicCar = makePublicCar(car)
+    const publicCar = makePublicCarFromDb(car)
 
     if (!car) notFound()
 
