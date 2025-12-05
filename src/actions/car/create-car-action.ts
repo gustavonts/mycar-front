@@ -25,6 +25,7 @@ export async function createCarAction(prevState: createCarActionState, formData:
 
     console.log(Object.fromEntries(formData.entries()));
 
+<<<<<<< HEAD
     // Normalizar FormData para objeto, tratando campos vazios
     const formDataToObj: Record<string, any> = {}
     for (const [key, value] of formData.entries()) {
@@ -32,6 +33,10 @@ export async function createCarAction(prevState: createCarActionState, formData:
         formDataToObj[key] = value
     }
     
+=======
+
+    const formDataToObj = Object.fromEntries(formData.entries())
+>>>>>>> b9c56a4a1dbe461e6b802d706d14e01382fec5bc
     const zodParsedObj = CarCreateSchema.safeParse(formDataToObj)
 
     if(!zodParsedObj.success) {
