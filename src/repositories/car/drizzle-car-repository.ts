@@ -4,6 +4,7 @@ import { drizzleDb } from "@/db/drizzle";
 import { parseImages } from "@/utils/parse-image";
 import { asyncDelay } from "@/utils/async-delay";
 import { SIMULATE_WAIT_IN_MS } from "@/lib/constants";
+import { carsTable } from "@/db/drizzle/schemas";
 
 export class DrizzleCarRepository implements CarRepository {
     async findAllPublic(): Promise<CarModel[]> {
@@ -61,6 +62,21 @@ export class DrizzleCarRepository implements CarRepository {
         };
     }
     
+    async create(car: CarModel): Promise<CarModel> {
+        const carExists = await drizzleDb.query.cars.findFirst({
+            where: (cars, {eq}) =>
+                eq(cars.id, car.id),
+            columns: {id: true}
+        })
+
+        if ( !!carExists) {
+            throw new Error ('Carro com esse ID já existe na base de dados')
+        }
+
+        await drizzleDb.insert(carsTable).values(car)
+
+        return car
+    }
 }
 
 (async () => {

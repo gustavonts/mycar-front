@@ -11,7 +11,7 @@ export type CarModel = {
     mileage: string
     color: string
     description: string
-    images: string | string[];
+    images: string;
     active: boolean
     user: string
     createdAt: string

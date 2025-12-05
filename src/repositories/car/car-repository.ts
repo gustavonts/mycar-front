@@ -5,4 +5,6 @@ export interface CarRepository {
     findAll(): Promise<CarModel[]>
     findByIdPublic(id: string): Promise<CarModel>
     findById(id: string): Promise<CarModel>
+
+    create(car: CarModel): Promise<CarModel>
 }

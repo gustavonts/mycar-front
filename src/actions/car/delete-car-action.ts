@@ -4,7 +4,7 @@ import { drizzleDb } from "@/db/drizzle"
 import { carsTable } from "@/db/drizzle/schemas"
 import { carRepository } from "@/repositories/car"
 import { eq } from "drizzle-orm/sqlite-core/expressions"
-import { revalidateTag } from "next/cache"
+import { updateTag } from "next/cache"
 
 export async function deleteCarAction(id: string ) {
 
@@ -24,8 +24,8 @@ export async function deleteCarAction(id: string ) {
 
     await drizzleDb.delete(carsTable).where(eq(carsTable.id, id))
 
-    revalidateTag('cars', 'default')
-    revalidateTag(`car-${id}`, 'default')
+    updateTag('cars')
+    updateTag(`car-${id}`)
 
     return {
         error: ''

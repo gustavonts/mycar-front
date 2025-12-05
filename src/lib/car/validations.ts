@@ -50,18 +50,10 @@ const CarBaseSchema = z.object({
     .trim()
     .min(3, 'Cor deve ter, no mínimo, 3 caracteres')
     .max(20, 'Cor deve ter um máximo de 20 caracteres'),
-<<<<<<< HEAD
   description: z.preprocess(
     (val) => (val === undefined || val === null ? '' : String(val)),
     z.string().trim().min(3, 'Descrição é obrigatório').transform(val => sanitizeHtml(val))
   ),
-=======
-  description: z
-    .string()
-    .trim()
-    .min(3, 'Descrição é obrigatório')
-    .transform(val => sanitizeHtml(val)),
->>>>>>> b9c56a4a1dbe461e6b802d706d14e01382fec5bc
   user: z
     .string()
     .trim()

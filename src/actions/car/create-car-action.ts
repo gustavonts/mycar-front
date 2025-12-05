@@ -1,10 +1,15 @@
 'use server'
 
+import { drizzleDb } from "@/db/drizzle"
+import { carsTable } from "@/db/drizzle/schemas"
 import { makePartialPublicCar, PublicCar } from "@/dto/car/dto"
 import { CarCreateSchema } from "@/lib/car/validations"
 import { CarModel } from "@/models/car/car-model"
+import { carRepository } from "@/repositories/car"
 import { getZodErrorMessages } from "@/utils/get-zod-error-messages"
-import { error } from "console"
+import { revalidateTag, updateTag } from 'next/cache'
+import { redirect } from 'next/navigation'
+import { v4 as uuidV4 } from "uuid"
 
 type createCarActionState = {
     formState: PublicCar
@@ -25,7 +30,6 @@ export async function createCarAction(prevState: createCarActionState, formData:
 
     console.log(Object.fromEntries(formData.entries()));
 
-<<<<<<< HEAD
     // Normalizar FormData para objeto, tratando campos vazios
     const formDataToObj: Record<string, any> = {}
     for (const [key, value] of formData.entries()) {
@@ -33,10 +37,6 @@ export async function createCarAction(prevState: createCarActionState, formData:
         formDataToObj[key] = value
     }
     
-=======
-
-    const formDataToObj = Object.fromEntries(formData.entries())
->>>>>>> b9c56a4a1dbe461e6b802d706d14e01382fec5bc
     const zodParsedObj = CarCreateSchema.safeParse(formDataToObj)
 
     if(!zodParsedObj.success) {
@@ -50,15 +50,30 @@ export async function createCarAction(prevState: createCarActionState, formData:
     const validCarData = zodParsedObj.data
     const newCar: CarModel = {
         ...validCarData,
-        images: [],
-        id: Date.now().toString(),
+        images: JSON.stringify(validCarData.images),
+        id: uuidV4(),
         fipeCode: Math.random().toString(4),
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
+    };
+
+    try {
+        await carRepository.create(newCar)
+    } catch(e: unknown) {
+        if(e instanceof Error) {
+            return {
+                formState: newCar,
+                errors: [e.message]
+            }
+        }
+
+        return {
+            formState: newCar,
+            errors: ['Erro desconhecido'] 
+        }
     }
 
-    return  {
-        formState: newCar,
-        errors: []
-    }
+    updateTag('cars')
+    redirect(`/admin/car/${newCar.id}`)
+
 }
