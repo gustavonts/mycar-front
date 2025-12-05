@@ -13,7 +13,7 @@ export default function CarHeading({children, url, as: Tag = 'h2'}: CarHeadingPr
     }
     return (
         <Tag className={headingClassesMap[Tag]}>
-            <Link className='group:hover:text-slate-600 transition' href={url}>{children}</Link>
+            <Link className='group-hover:opacity-80 transition-opacity' href={url}>{children}</Link>
         </Tag>
     )
 }

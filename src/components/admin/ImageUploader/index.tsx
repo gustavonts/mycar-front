@@ -17,7 +17,6 @@ export function ImageUploader() {
 
     function handleChooseFile() {
         if(!fileInputRef.current) return
-
         fileInputRef.current.click()
     }
 
@@ -54,8 +53,8 @@ export function ImageUploader() {
                 setImgUrl('')
                 return
             }
-            setImgUrl(result.url)
 
+            setImgUrl(result.url)
             toast.success('Imagem enviada')
         })
 
@@ -71,12 +70,22 @@ export function ImageUploader() {
 
             {!!imgUrl && (
                 <div className='flex flex-col gap-4'>
+                    <input type="hidden" name="images" value={imgUrl} />
+
                     <p><b>URL: </b> {imgUrl}</p>
                     <img className='rounded-lg' src={imgUrl} />
                 </div>
             )}
 
-            <input ref={fileInputRef} className="hidden" name="file" type="file" accept="image/*" onChange={handleChange} disabled={isUploading}/>
+            <input 
+                ref={fileInputRef} 
+                className="hidden" 
+                name="images" 
+                type="file" 
+                accept="image/*" 
+                onChange={handleChange} 
+                disabled={isUploading}
+            />
         </div>
     )
 }

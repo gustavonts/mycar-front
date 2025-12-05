@@ -8,10 +8,10 @@ type CarCoverImageprops = {
 
 export default function CarCoverImage({ linkProps, imageProps }: CarCoverImageprops){
     return (
-        <Link className="overflow-hidden rounded-xl" {...linkProps}>
+        <Link className="overflow-hidden rounded-xl block relative aspect-video" {...linkProps}>
             <Image 
             {...imageProps}
-            className="group-hover:scale-105 transition object-cover object-center" 
+            className="group-hover:scale-105 transition-transform duration-300 object-cover w-full h-full" 
             />
         </Link>
     )

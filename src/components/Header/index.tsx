@@ -1,15 +1,11 @@
-import Link from "next/link";
+import { Logo } from "../Logo"
 
 export function Header() {
     return (
-        <header>
-            <h1 className="
-                text-4xl/normal font-extrabold py-8 
-                sm:text-5xl/normal sm:py-10 
-                md:text-6xl/normal md:py-11 
-                lg:text-7xl/normal lg:py-12">
-                <Link href="/">Car Sale</Link>
-            </h1>
+        <header className="mb-8">
+            <div className="py-6 sm:py-8 md:py-10">
+                <Logo />
+            </div>
         </header>
     )
 }
