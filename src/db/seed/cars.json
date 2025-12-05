@@ -218,6 +218,321 @@
             "user": "Gustavo Guedes",
             "createdAt": "2025-04-09T12:00:00.000Z",
             "updatedAt": "2025-04-09T12:30:45.000Z"
+        },
+        {
+            "id": "c1d2e3f4-g5h6-7890-1234-567890abcdef",
+            "fipeCode": "006789-3",
+            "brand": "Fiat",
+            "model": "Uno",
+            "version": "1.0 Fire Flex 8V 4p",
+            "year": "2010",
+            "plate": "STU3V45",
+            "fuel": "Flex",
+            "price": "25000",
+            "mileage": "110000",
+            "color": "Vermelho",
+            "description": "Fiat Uno 1.0 Fire, econômico e confiável, ideal para cidade.",
+            "images": [
+                "/images/ka_1.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-03-15T10:00:00.000Z",
+            "updatedAt": "2025-03-15T10:30:00.000Z"
+        },
+        {
+            "id": "d2e3f4g5-h6i7-8901-2345-678901bcdefg",
+            "fipeCode": "007890-4",
+            "brand": "Chevrolet",
+            "model": "Onix",
+            "version": "1.4 LTZ AT 8V Flex",
+            "year": "2020",
+            "plate": "WXY4Z56",
+            "fuel": "Flex",
+            "price": "68000",
+            "mileage": "45000",
+            "color": "Branco",
+            "description": "Chevrolet Onix 1.4 LTZ automático, completo e moderno, único dono.",
+            "images": [
+                "/images/cruze_1.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-05-20T14:00:00.000Z",
+            "updatedAt": "2025-05-20T14:45:00.000Z"
+        },
+        {
+            "id": "e3f4g5h6-i7j8-9012-3456-789012cdefgh",
+            "fipeCode": "008901-5",
+            "brand": "Hyundai",
+            "model": "HB20",
+            "version": "1.6 Comfort Plus 16V Flex",
+            "year": "2019",
+            "plate": "ABC5D67",
+            "fuel": "Flex",
+            "price": "62000",
+            "mileage": "55000",
+            "color": "Prata",
+            "description": "Hyundai HB20 1.6 Comfort Plus, espaçoso e confortável, revisões em dia.",
+            "images": [
+                "/images/corolla_1.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-06-10T09:00:00.000Z",
+            "updatedAt": "2025-06-10T09:30:00.000Z"
+        },
+        {
+            "id": "f4g5h6i7-j8k9-0123-4567-890123defghi",
+            "fipeCode": "009012-6",
+            "brand": "Nissan",
+            "model": "Versa",
+            "version": "1.6 SL CVT Flex",
+            "year": "2021",
+            "plate": "EFG6H78",
+            "fuel": "Flex",
+            "price": "78000",
+            "mileage": "30000",
+            "color": "Preto",
+            "description": "Nissan Versa 1.6 SL automático, moderno e tecnológico, baixa quilometragem.",
+            "images": [
+                "/images/civic_1.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-07-05T11:00:00.000Z",
+            "updatedAt": "2025-07-05T11:20:00.000Z"
+        },
+        {
+            "id": "g5h6i7j8-k9l0-1234-5678-901234efghij",
+            "fipeCode": "010123-7",
+            "brand": "Peugeot",
+            "model": "208",
+            "version": "1.6 Allure 16V Flex",
+            "year": "2018",
+            "plate": "IJK7L89",
+            "fuel": "Flex",
+            "price": "52000",
+            "mileage": "72000",
+            "color": "Azul",
+            "description": "Peugeot 208 1.6 Allure, design moderno e bom desempenho.",
+            "images": [
+                "/images/focus_1.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-08-12T13:00:00.000Z",
+            "updatedAt": "2025-08-12T13:15:00.000Z"
+        },
+        {
+            "id": "h6i7j8k9-l0m1-2345-6789-012345fghijk",
+            "fipeCode": "011234-8",
+            "brand": "Renault",
+            "model": "Kwid",
+            "version": "1.0 Zen 12V Flex",
+            "year": "2022",
+            "plate": "MNO8P90",
+            "fuel": "Flex",
+            "price": "45000",
+            "mileage": "15000",
+            "color": "Branco",
+            "description": "Renault Kwid 1.0 Zen, compacto e econômico, quase novo.",
+            "images": [
+                "/images/sandero_1.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-09-18T15:00:00.000Z",
+            "updatedAt": "2025-09-18T15:10:00.000Z"
+        },
+        {
+            "id": "i7j8k9l0-m1n2-3456-7890-123456ghijkl",
+            "fipeCode": "012345-9",
+            "brand": "Volkswagen",
+            "model": "Polo",
+            "version": "1.6 MSI Comfortline 16V Flex",
+            "year": "2020",
+            "plate": "QRS9T01",
+            "fuel": "Flex",
+            "price": "72000",
+            "mileage": "40000",
+            "color": "Cinza",
+            "description": "Volkswagen Polo 1.6 Comfortline, qualidade alemã, bem conservado.",
+            "images": [
+                "/images/golf_1.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-10-25T16:00:00.000Z",
+            "updatedAt": "2025-10-25T16:25:00.000Z"
+        },
+        {
+            "id": "j8k9l0m1-n2o3-4567-8901-234567hijklm",
+            "fipeCode": "013456-0",
+            "brand": "Toyota",
+            "model": "Yaris",
+            "version": "1.5 XLS CVT Flex",
+            "year": "2021",
+            "plate": "UVW0X12",
+            "fuel": "Flex",
+            "price": "95000",
+            "mileage": "25000",
+            "color": "Branco",
+            "description": "Toyota Yaris 1.5 XLS automático, confiabilidade Toyota, seminovo.",
+            "images": [
+                "/images/corolla_1.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-11-30T17:00:00.000Z",
+            "updatedAt": "2025-11-30T17:30:00.000Z"
+        },
+        {
+            "id": "k9l0m1n2-o3p4-5678-9012-345678ijklmn",
+            "fipeCode": "014567-1",
+            "brand": "Honda",
+            "model": "Fit",
+            "version": "1.5 EXL 16V Flex",
+            "year": "2019",
+            "plate": "YZA1B23",
+            "fuel": "Flex",
+            "price": "75000",
+            "mileage": "60000",
+            "color": "Prata",
+            "description": "Honda Fit 1.5 EXL, versátil e econômico, excelente para cidade.",
+            "images": [
+                "/images/civic_1.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-12-05T18:00:00.000Z",
+            "updatedAt": "2025-12-05T18:15:00.000Z"
+        },
+        {
+            "id": "l0m1n2o3-p4q5-6789-0123-456789jklmno",
+            "fipeCode": "015678-2",
+            "brand": "Chevrolet",
+            "model": "Tracker",
+            "version": "1.4 Turbo LTZ 4x2 Flex",
+            "year": "2022",
+            "plate": "CDE2F34",
+            "fuel": "Flex",
+            "price": "125000",
+            "mileage": "20000",
+            "color": "Preto",
+            "description": "Chevrolet Tracker 1.4 Turbo LTZ, SUV compacto, quase novo.",
+            "images": [
+                "/images/cruze_1.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-12-10T19:00:00.000Z",
+            "updatedAt": "2025-12-10T19:20:00.000Z"
+        },
+        {
+            "id": "m1n2o3p4-q5r6-7890-1234-567890klmnop",
+            "fipeCode": "016789-3",
+            "brand": "Jeep",
+            "model": "Renegade",
+            "version": "1.8 Longitude 4x2 Flex",
+            "year": "2020",
+            "plate": "GHI3J45",
+            "fuel": "Flex",
+            "price": "98000",
+            "mileage": "45000",
+            "color": "Branco",
+            "description": "Jeep Renegade 1.8 Longitude, SUV versátil e moderno.",
+            "images": [
+                "/images/macan_1.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-12-15T20:00:00.000Z",
+            "updatedAt": "2025-12-15T20:10:00.000Z"
+        },
+        {
+            "id": "n2o3p4q5-r6s7-8901-2345-678901lmnopq",
+            "fipeCode": "017890-4",
+            "brand": "Ford",
+            "model": "Ranger",
+            "version": "2.2 XLS 4x2 CD Diesel",
+            "year": "2018",
+            "plate": "KLM4N56",
+            "fuel": "Diesel",
+            "price": "115000",
+            "mileage": "80000",
+            "color": "Branco",
+            "description": "Ford Ranger 2.2 XLS, picape robusta e confiável.",
+            "images": [
+                "/images/focus_1.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-12-20T21:00:00.000Z",
+            "updatedAt": "2025-12-20T21:25:00.000Z"
+        },
+        {
+            "id": "o3p4q5r6-s7t8-9012-3456-789012mnopqr",
+            "fipeCode": "018901-5",
+            "brand": "Mitsubishi",
+            "model": "L200",
+            "version": "2.4 Triton Outdoor 4x4 Diesel",
+            "year": "2019",
+            "plate": "OPQ5R67",
+            "fuel": "Diesel",
+            "price": "135000",
+            "mileage": "65000",
+            "color": "Prata",
+            "description": "Mitsubishi L200 Triton Outdoor 4x4, picape completa e off-road.",
+            "images": [
+                "/images/cruze_1.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-12-25T22:00:00.000Z",
+            "updatedAt": "2025-12-25T22:15:00.000Z"
+        },
+        {
+            "id": "p4q5r6s7-t8u9-0123-4567-890123nopqrs",
+            "fipeCode": "019012-6",
+            "brand": "BMW",
+            "model": "320i",
+            "version": "2.0 Turbo 16V Gasolina",
+            "year": "2017",
+            "plate": "STU6V78",
+            "fuel": "Gasolina",
+            "price": "180000",
+            "mileage": "55000",
+            "color": "Preto",
+            "description": "BMW 320i 2.0 Turbo, luxo e performance, bem conservado.",
+            "images": [
+                "/images/macan_1.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-12-28T23:00:00.000Z",
+            "updatedAt": "2025-12-28T23:30:00.000Z"
+        },
+        {
+            "id": "q5r6s7t8-u9v0-1234-5678-901234opqrst",
+            "fipeCode": "020123-7",
+            "brand": "Mercedes-Benz",
+            "model": "C180",
+            "version": "1.6 Turbo 16V Gasolina",
+            "year": "2018",
+            "plate": "WXY7Z89",
+            "fuel": "Gasolina",
+            "price": "195000",
+            "mileage": "48000",
+            "color": "Prata",
+            "description": "Mercedes-Benz C180, elegância e tecnologia, único dono.",
+            "images": [
+                "/images/macan_1.png"
+            ],
+            "active": true,
+            "user": "Gustavo Guedes",
+            "createdAt": "2025-12-30T00:00:00.000Z",
+            "updatedAt": "2025-12-30T00:20:00.000Z"
         }
     ]
 }
