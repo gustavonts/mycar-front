@@ -1,9 +1,6 @@
 'use server'
 
-import { drizzleDb } from "@/db/drizzle"
-import { carsTable } from "@/db/drizzle/schemas"
 import { carRepository } from "@/repositories/car"
-import { eq } from "drizzle-orm/sqlite-core/expressions"
 import { updateTag } from "next/cache"
 
 export async function deleteCarAction(id: string ) {
@@ -14,15 +11,19 @@ export async function deleteCarAction(id: string ) {
         }
     }
 
-    const car = await carRepository.findById(id).catch(() => undefined)
+    try {
+        await carRepository.delete(id)
+    } catch(e: unknown) {
+        if(e instanceof Error) {
+            return {
+                error: e.message
+            }
+        }
 
-    if(!car) {
         return {
-            error: 'Carro não existe'
+            error: 'Erro desconhecido'
         }
     }
-
-    await drizzleDb.delete(carsTable).where(eq(carsTable.id, id))
 
     updateTag('cars')
     updateTag(`car-${id}`)

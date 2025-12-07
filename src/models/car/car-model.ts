@@ -5,7 +5,7 @@ export type CarModel = {
     model: string
     version: string
     year: string
-    plate?: string | null
+    plate: string | null
     fuel: string
     price: string
     mileage: string

@@ -1,7 +1,5 @@
 'use server'
 
-import { drizzleDb } from "@/db/drizzle"
-import { carsTable } from "@/db/drizzle/schemas"
 import { makePartialPublicCar, PublicCar } from "@/dto/car/dto"
 import { CarCreateSchema } from "@/lib/car/validations"
 import { CarModel } from "@/models/car/car-model"

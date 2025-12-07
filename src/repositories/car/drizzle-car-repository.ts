@@ -5,6 +5,7 @@ import { parseImages } from "@/utils/parse-image";
 import { asyncDelay } from "@/utils/async-delay";
 import { SIMULATE_WAIT_IN_MS } from "@/lib/constants";
 import { carsTable } from "@/db/drizzle/schemas";
+import { eq } from "drizzle-orm"
 
 export class DrizzleCarRepository implements CarRepository {
     async findAllPublic(): Promise<CarModel[]> {
@@ -76,6 +77,57 @@ export class DrizzleCarRepository implements CarRepository {
         await drizzleDb.insert(carsTable).values(car)
 
         return car
+    }
+
+
+    async delete(id: string): Promise<CarModel> {
+        const car = await drizzleDb.query.cars.findFirst({
+            where: (cars, {eq}) => eq(cars.id, id)
+        })
+
+        if (!car) {
+            throw new Error ('Carro não existe')
+        }
+
+        await drizzleDb.delete(carsTable).where(eq(carsTable.id, id))
+
+        return car
+    }
+
+    async update(id: string, newCarData: Omit<CarModel, 'id' | 'createdAt' | 'updatedAt'>): Promise <CarModel> {
+        const oldCar = await drizzleDb.query.cars.findFirst({
+            where: (cars, {eq}) => eq(cars.id, id)
+        })
+
+        if(!oldCar) {
+            throw new Error('Carro não existe')
+        }
+
+        const updatedAt = new Date().toISOString()
+        const carData = {
+            fipeCode: newCarData.fipeCode,
+            brand: newCarData.brand,
+            model: newCarData.model,
+            version: newCarData.version,
+            year: newCarData.year,
+            plate: newCarData.plate,
+            fuel: newCarData.fuel,
+            price: newCarData.price,
+            mileage: newCarData.mileage,
+            color: newCarData.color,
+            description: newCarData.description,
+            images: newCarData.images,
+            active: newCarData.active,
+            user: newCarData.user,
+            updatedAt: updatedAt,
+        }
+
+        await drizzleDb.update(carsTable).set(carData).where(eq(carsTable.id, id))
+
+        return {
+            ...oldCar,
+            ...carData
+        }
     }
 }
 
