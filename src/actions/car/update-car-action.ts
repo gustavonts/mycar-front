@@ -1,21 +1,19 @@
 'use server'
 
-import { makePartialPublicCar, PublicCar } from "@/dto/car/dto"
-import { CarCreateSchema } from "@/lib/car/validations"
+import { makePartialPublicCar, makePublicCarFromDb, PublicCar } from "@/dto/car/dto"
+import { CarUpdateSchema } from "@/lib/car/validations"
 import { CarModel } from "@/models/car/car-model"
 import { carRepository } from "@/repositories/car"
 import { getZodErrorMessages } from "@/utils/get-zod-error-messages"
-import { revalidateTag, updateTag } from 'next/cache'
-import { redirect } from 'next/navigation'
-import { v4 as uuidV4 } from "uuid"
+import { updateTag } from 'next/cache'
 
-type CreateCarActionState = {
+type UpdateCarActionState = {
     formState: PublicCar
     errors: string[]
     sucess?: true
 }
 
-export async function createCarAction(prevState: CreateCarActionState, formData: FormData): Promise<CreateCarActionState> {
+export async function updateCarAction(prevState: UpdateCarActionState, formData: FormData): Promise<UpdateCarActionState> {
     
     if(!(formData instanceof FormData)) {
         return  {
@@ -25,12 +23,24 @@ export async function createCarAction(prevState: CreateCarActionState, formData:
             errors: ['Dados Inválidos']
         }
     }
+
+    const id = formData.get('id')?.toString()  || ''
+
+    if (!id || typeof id  !== 'string') {
+        return  {
+            formState: {
+                ...prevState.formState,
+            },
+            errors: ['ID Inválidos']
+        }  
+    }
+
     const formDataToObj: Record<string, any> = {}
     for (const [key, value] of formData.entries()) {
         formDataToObj[key] = value
     }
     
-    const zodParsedObj = CarCreateSchema.safeParse(formDataToObj)
+    const zodParsedObj = CarUpdateSchema.safeParse(formDataToObj)
 
     if(!zodParsedObj.success) {
         const errors = getZodErrorMessages(zodParsedObj.error.format())
@@ -41,31 +51,33 @@ export async function createCarAction(prevState: CreateCarActionState, formData:
     }
 
     const validCarData = zodParsedObj.data
-    const newCar: CarModel = {
+    const newCar = {
         ...validCarData,
-        images: JSON.stringify(validCarData.images),
-        id: uuidV4(),
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
     };
 
+    let car
+
     try {
-        await carRepository.create(newCar)
+        car = await carRepository.update(id, newCar)
     } catch(e: unknown) {
         if(e instanceof Error) {
             return {
-                formState: newCar,
+                formState: makePartialPublicCar(formDataToObj),
                 errors: [e.message]
             }
         }
 
         return {
-            formState: newCar,
+            formState: makePartialPublicCar(formDataToObj),
             errors: ['Erro desconhecido'] 
         }
     }
 
     updateTag('cars')
-    redirect(`/admin/car/${newCar.id}?created=1`)
 
+    return {
+        formState: makePublicCarFromDb(car),
+        errors: [],
+        sucess: true
+    }
 }

@@ -2,7 +2,6 @@
     "cars": [
         {
             "id": "c3d4e5f6-a7b8-9012-3456-7890abcdefgh",
-            "fipeCode": "005111-2",
             "brand": "Ford",
             "model": "Ka",
             "version": "1.0 MPI Class / XR 8v",
@@ -24,7 +23,6 @@
         },
         {
             "id": "a7f3b2d6-2c1b-45f0-9e67-8b14b1e3f9aa",
-            "fipeCode": "001234-0",
             "brand": "Ford",
             "model": "Focus",
             "version": "2.0 GLX MANUAL",
@@ -46,7 +44,6 @@
         },
         {
             "id": "b3a918b7-73b2-48c5-9f54-1b22b1fbb912",
-            "fipeCode": "001567-1",
             "brand": "Chevrolet",
             "model": "Cruze",
             "version": "1.8 LTZ AT",
@@ -68,7 +65,6 @@
         },
         {
             "id": "d8c4e1e9-7b47-4921-8e29-bfa33db28f3f",
-            "fipeCode": "003210-5",
             "brand": "Volkswagen",
             "model": "Golf",
             "version": "2.0 GTI Highline",
@@ -90,7 +86,6 @@
         },
         {
             "id": "e2d9f841-89cc-4d82-bb14-47f8a73f2a56",
-            "fipeCode": "004321-7",
             "brand": "Honda",
             "model": "Civic",
             "version": "2.0 EXL CVT",
@@ -112,7 +107,6 @@
         },
         {
             "id": "f5b92c9e-4452-4fa0-bd37-9272b2e4b930",
-            "fipeCode": "005678-2",
             "brand": "Toyota",
             "model": "Corolla",
             "version": "2.0 Altis CVT",
@@ -134,7 +128,6 @@
         },
         {
             "id": "f5b92c9e-4452-4fa0-3212-387920bhjhfdd",
-            "fipeCode": "005XXX-X",
             "brand": "Ford",
             "model": "Focus",
             "version": "2.0 Powershift SE Plus",
@@ -155,7 +148,6 @@
         },
         {
             "id": "e6a7b8c9-1234-5678-90ab-cdef01234567",
-            "fipeCode": "025239-1",
             "brand": "Renault",
             "model": "Sandero RS",
             "version": "2.0 16v Flex 4p",
@@ -177,7 +169,6 @@
         },
         {
             "id": "a1b2c3d4-e5f6-7890-1234-0938jhrfgij",
-            "fipeCode": "035060-0",
             "brand": "Porsche",
             "model": "Macan",
             "version": "2.0 16V Gasolina PDK",
@@ -199,7 +190,6 @@
         },
         {
             "id": "b2c3d4e5-f6a7-8901-2345-lkmfnvgo30874",
-            "fipeCode": "005391-0",
             "brand": "Volkswagen",
             "model": "Jetta",
             "version": "2.0 TSi Comfortline DSG",
@@ -221,7 +211,6 @@
         },
         {
             "id": "c1d2e3f4-g5h6-7890-1234-567890abcdef",
-            "fipeCode": "006789-3",
             "brand": "Fiat",
             "model": "Uno",
             "version": "1.0 Fire Flex 8V 4p",
@@ -242,7 +231,6 @@
         },
         {
             "id": "d2e3f4g5-h6i7-8901-2345-678901bcdefg",
-            "fipeCode": "007890-4",
             "brand": "Chevrolet",
             "model": "Onix",
             "version": "1.4 LTZ AT 8V Flex",
@@ -263,7 +251,6 @@
         },
         {
             "id": "e3f4g5h6-i7j8-9012-3456-789012cdefgh",
-            "fipeCode": "008901-5",
             "brand": "Hyundai",
             "model": "HB20",
             "version": "1.6 Comfort Plus 16V Flex",
@@ -284,7 +271,6 @@
         },
         {
             "id": "f4g5h6i7-j8k9-0123-4567-890123defghi",
-            "fipeCode": "009012-6",
             "brand": "Nissan",
             "model": "Versa",
             "version": "1.6 SL CVT Flex",
@@ -305,7 +291,6 @@
         },
         {
             "id": "g5h6i7j8-k9l0-1234-5678-901234efghij",
-            "fipeCode": "010123-7",
             "brand": "Peugeot",
             "model": "208",
             "version": "1.6 Allure 16V Flex",
@@ -326,7 +311,6 @@
         },
         {
             "id": "h6i7j8k9-l0m1-2345-6789-012345fghijk",
-            "fipeCode": "011234-8",
             "brand": "Renault",
             "model": "Kwid",
             "version": "1.0 Zen 12V Flex",
@@ -347,7 +331,6 @@
         },
         {
             "id": "i7j8k9l0-m1n2-3456-7890-123456ghijkl",
-            "fipeCode": "012345-9",
             "brand": "Volkswagen",
             "model": "Polo",
             "version": "1.6 MSI Comfortline 16V Flex",
@@ -368,7 +351,6 @@
         },
         {
             "id": "j8k9l0m1-n2o3-4567-8901-234567hijklm",
-            "fipeCode": "013456-0",
             "brand": "Toyota",
             "model": "Yaris",
             "version": "1.5 XLS CVT Flex",
@@ -389,7 +371,6 @@
         },
         {
             "id": "k9l0m1n2-o3p4-5678-9012-345678ijklmn",
-            "fipeCode": "014567-1",
             "brand": "Honda",
             "model": "Fit",
             "version": "1.5 EXL 16V Flex",
@@ -410,7 +391,6 @@
         },
         {
             "id": "l0m1n2o3-p4q5-6789-0123-456789jklmno",
-            "fipeCode": "015678-2",
             "brand": "Chevrolet",
             "model": "Tracker",
             "version": "1.4 Turbo LTZ 4x2 Flex",
@@ -431,7 +411,6 @@
         },
         {
             "id": "m1n2o3p4-q5r6-7890-1234-567890klmnop",
-            "fipeCode": "016789-3",
             "brand": "Jeep",
             "model": "Renegade",
             "version": "1.8 Longitude 4x2 Flex",
@@ -452,7 +431,6 @@
         },
         {
             "id": "n2o3p4q5-r6s7-8901-2345-678901lmnopq",
-            "fipeCode": "017890-4",
             "brand": "Ford",
             "model": "Ranger",
             "version": "2.2 XLS 4x2 CD Diesel",
@@ -473,7 +451,6 @@
         },
         {
             "id": "o3p4q5r6-s7t8-9012-3456-789012mnopqr",
-            "fipeCode": "018901-5",
             "brand": "Mitsubishi",
             "model": "L200",
             "version": "2.4 Triton Outdoor 4x4 Diesel",
@@ -494,7 +471,6 @@
         },
         {
             "id": "p4q5r6s7-t8u9-0123-4567-890123nopqrs",
-            "fipeCode": "019012-6",
             "brand": "BMW",
             "model": "320i",
             "version": "2.0 Turbo 16V Gasolina",
@@ -515,7 +491,6 @@
         },
         {
             "id": "q5r6s7t8-u9v0-1234-5678-901234opqrst",
-            "fipeCode": "020123-7",
             "brand": "Mercedes-Benz",
             "model": "C180",
             "version": "1.6 Turbo 16V Gasolina",

@@ -27,7 +27,7 @@ export default async function AdminCarIdPage({params}: AdminCarIdPageProps) {
     return (
         <div className="flex flex-col gap-6">
             <h1 className="text-xl font-extrabold">Editar veículo</h1>
-            <ManageCarForm publicCar={publicCar}/>
+            <ManageCarForm mode='update' publicCar={publicCar}/>
         </div>   
     )
 }

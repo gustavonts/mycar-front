@@ -2,14 +2,11 @@ import { CarModel } from "@/models/car/car-model";
 import { CarRepository } from "./car-repository";
 import { drizzleDb } from "@/db/drizzle";
 import { parseImages } from "@/utils/parse-image";
-import { asyncDelay } from "@/utils/async-delay";
-import { SIMULATE_WAIT_IN_MS } from "@/lib/constants";
 import { carsTable } from "@/db/drizzle/schemas";
 import { eq } from "drizzle-orm"
 
 export class DrizzleCarRepository implements CarRepository {
     async findAllPublic(): Promise<CarModel[]> {
-        await asyncDelay(SIMULATE_WAIT_IN_MS, true)
         const cars = await drizzleDb.query.cars.findMany({
             orderBy: (cars, {desc}) => desc(cars.createdAt),
             where: (cars, {eq}) => eq(cars.active, true)
@@ -22,7 +19,6 @@ export class DrizzleCarRepository implements CarRepository {
     }
 
     async findByIdPublic(id: string): Promise<CarModel> {
-        await asyncDelay(SIMULATE_WAIT_IN_MS, true)
         const car = await drizzleDb.query.cars.findFirst({
             where: (cars, {eq, and}) => and(eq(cars.active, true), eq(cars.id, id)),
 
@@ -37,7 +33,6 @@ export class DrizzleCarRepository implements CarRepository {
     }
     
     async findAll(): Promise<CarModel[]> {
-        await asyncDelay(SIMULATE_WAIT_IN_MS, true)
         const cars = await drizzleDb.query.cars.findMany({
             orderBy: (cars, {desc}) => desc(cars.createdAt)
         })
@@ -49,7 +44,6 @@ export class DrizzleCarRepository implements CarRepository {
     }
 
     async findById(id: string): Promise<CarModel> {
-        await asyncDelay(SIMULATE_WAIT_IN_MS, true)
         const car = await drizzleDb.query.cars.findFirst({
             where: (cars, {eq}) => eq(cars.id, id),
 
@@ -105,7 +99,6 @@ export class DrizzleCarRepository implements CarRepository {
 
         const updatedAt = new Date().toISOString()
         const carData = {
-            fipeCode: newCarData.fipeCode,
             brand: newCarData.brand,
             model: newCarData.model,
             version: newCarData.version,
@@ -131,13 +124,3 @@ export class DrizzleCarRepository implements CarRepository {
     }
 }
 
-(async () => {
-    // const repo = new DrizzleCarRepository()
-    // const cars = await repo.findByIdPublic("e6a7b8c9-1234-5678-90ab-cdef01234567")
-
-    // console.log(cars)
-
-    // cars.forEach(car => console.log(car.id, car.brand, car.active))
-
-    // await repo.findByIdPublic("b2c3d4e5-f6a7-8901-2345-lkmfnvgo30874")
-})()

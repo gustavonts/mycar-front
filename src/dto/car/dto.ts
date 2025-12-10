@@ -5,7 +5,6 @@ export type PublicCar = Omit<CarModel, 'updatedAt'>
 export const makePartialPublicCar = (car?: Partial<CarModel>): PublicCar => {
     return {
         id: car?.id ?? '',
-        fipeCode: car?.fipeCode ?? '',
         brand: car?.brand ?? '',
         model: car?.model ?? '',
         version: car?.version ?? '',

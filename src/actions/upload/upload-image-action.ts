@@ -1,7 +1,6 @@
 'use server'
 
 import { IMAGE_SERVER_URL, IMAGE_UPLOAD_DIRECTORY, IMAGE_UPLOAD_MAX_SIZE } from "@/lib/constants"
-import { asyncDelay } from "@/utils/async-delay"
 import { mkdir, writeFile } from "fs/promises"
 import { extname, resolve } from "path"
 

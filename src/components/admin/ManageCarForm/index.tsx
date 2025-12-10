@@ -8,21 +8,46 @@ import { ImageUploader } from "../ImageUploader";
 import { InputCheckbox } from "@/components/inputs/InputCheckbox";
 import { makePartialPublicCar, PublicCar } from "@/dto/car/dto";
 import { createCarAction } from "@/actions/car/create-car-action";
-import { error } from "console";
 import { toast } from "react-toastify";
+import { updateCarAction } from "@/actions/car/update-car-action";
+import { useRouter, useSearchParams } from "next/navigation";
 
-type ManageCarFormProps = {
-    publicCar?: PublicCar
+type ManageCarFormUpdateProps = {
+    mode: 'update'
+    publicCar: PublicCar
 }
 
-export function ManageCarForm({publicCar}: ManageCarFormProps) {
+type ManageCarFormCreateProps = {
+    mode: 'create'
+}
+
+type ManageCarFormProps = 
+    | ManageCarFormUpdateProps | ManageCarFormCreateProps
+
+export function ManageCarForm(props: ManageCarFormProps) {
+
+    const {mode} = props
+    const searchParams = useSearchParams()
+    const created = searchParams.get('created')
+    const router = useRouter()
+
+    let publicCar
+
+    if(mode === 'update') {
+        publicCar = props.publicCar
+    }
+
+    const actionsMap = {
+        update: updateCarAction,
+        create: createCarAction
+    }
 
     const initialState = {
         formState: makePartialPublicCar(publicCar),
         errors: []
     }
-    const [state, action, insPending] = useActionState(
-        createCarAction,
+    const [state, action, isPending] = useActionState(
+        actionsMap[mode],
         initialState
     )
 
@@ -33,6 +58,23 @@ export function ManageCarForm({publicCar}: ManageCarFormProps) {
         }
     }, [state.errors])
 
+    useEffect(() => {
+        if (state.sucess) {
+            toast.dismiss()
+            toast.success('Carro atualizado com sucesso')
+        }
+    }, [state])
+
+    useEffect(() => {
+        if (created === '1') {
+            toast.dismiss()
+            toast.success('Carro criado com sucesso')
+            const url = new URL(window.location.href)
+            url.searchParams.delete('created')
+            router.replace(url.toString())
+        }
+    }, [created, router])
+
     const { formState } = state
     const [contentValue, setContentValue] = useState(publicCar?.description || '')
 
@@ -40,38 +82,36 @@ export function ManageCarForm({publicCar}: ManageCarFormProps) {
         <form action={action} className="mb-16" encType="multipart/form-data">
             <div className="flex flex-col gap-6">
                 
-                <InputText labelText="ID" name='id' placeholder="ID gerado automaticamente" type="text" defaultValue={formState.id} readOnly/>
+                <InputText labelText="ID" name='id' placeholder="ID gerado automaticamente" type="text" defaultValue={formState.id} readOnly disabled={isPending}/>
 
-                <InputText labelText="FipeCode" name='fipeCode' placeholder="ID da tabela Fipe" type="text" defaultValue={formState.fipeCode} readOnly/>
+                <InputText labelText="Marca" name='brand' placeholder="Digite a marca do veículo" type="text" defaultValue={formState.brand} disabled={isPending}/>
 
-                <InputText labelText="Marca" name='brand' placeholder="Digite a marca do veículo" type="text" defaultValue={formState.brand}/>
+                <InputText labelText="Modelo" name='model' placeholder="Digite o modelo do veículo" type="text" defaultValue={formState.model} disabled={isPending}/>
 
-                <InputText labelText="Modelo" name='model' placeholder="Digite o modelo do veículo" type="text" defaultValue={formState.model}/>
+                <InputText labelText="Versão" name='version' placeholder="Digite a versão do veículo" type="text" defaultValue={formState.version} disabled={isPending}/>
 
-                <InputText labelText="Versão" name='version' placeholder="Digite a versão do veículo" type="text" defaultValue={formState.version}/>
+                <InputText labelText="Ano" name='year' placeholder="Digite o ano do veículo" type="text" defaultValue={formState.year} disabled={isPending}/>
 
-                <InputText labelText="Ano" name='year' placeholder="Digite o ano do veículo" type="text" defaultValue={formState.year}/>
+                <InputText labelText="Placa" name='plate' placeholder="Digite a placa do veículo" type="text" defaultValue={formState.plate ?? ""} disabled={isPending}/>
 
-                <InputText labelText="Placa" name='plate' placeholder="Digite a placa do veículo" type="text" defaultValue={formState.plate ?? ""}/>
+                <InputText labelText="Combustível" name='fuel' placeholder="Digite o tipo de combustível do veículo" type="text" defaultValue={formState.fuel} disabled={isPending}/>
 
-                <InputText labelText="Combustível" name='fuel' placeholder="Digite o tipo de combustível do veículo" type="text" defaultValue={formState.fuel}/>
+                <InputText labelText="Preço" name='price' placeholder="Digite o preço do veículo" type="text" defaultValue={formState.price} disabled={isPending}/>
 
-                <InputText labelText="Preço" name='price' placeholder="Digite o preço do veículo" type="text" defaultValue={formState.price}/>
+                <InputText labelText="Quilometragem" name='mileage' placeholder="Digite a quilometragem do veículo" type="text" defaultValue={formState.mileage} disabled={isPending}/>
 
-                <InputText labelText="Quilometragem" name='mileage' placeholder="Digite a quilometragem do veículo" type="text" defaultValue={formState.mileage}/>
+                <InputText labelText="Usuário" name='user' placeholder="usuário" type="text" defaultValue={formState.user} disabled={isPending}/>
 
-                <InputText labelText="Usuário" name='user' placeholder="usuário" type="text" defaultValue={formState.user}/>
+                <InputText labelText="Cor" name='color' placeholder="Digite a cor do veículo" type="text" defaultValue={formState.color} disabled={isPending}/>
 
-                <InputText labelText="Cor" name='color' placeholder="Digite a cor do veículo" type="text" defaultValue={formState.color}/>
+                <MarkdownEditor labelText="Descrição" value={contentValue} setValue={setContentValue} textAreaName="description" disabled={isPending}/>
 
-                <MarkdownEditor labelText="Descrição" value={contentValue} setValue={setContentValue} textAreaName="description" disabled={false}/>
+                <ImageUploader disabled={isPending}/>
 
-                <ImageUploader />
-
-                <InputCheckbox  labelText="Ativo?" name='active'  type="checkbox" defaultChecked={formState.active || false}/>
+                <InputCheckbox  labelText="Ativo?" name='active'  type="checkbox" defaultChecked={formState.active || false} disabled={isPending}/>
 
                 <div className="mt-4">
-                    <Button type="submit" size="md" className="w-full">Enviar</Button>
+                    <Button type="submit" size="md" className="w-full" disabled={isPending}>Enviar</Button>
                 </div>
             </div>
         </form>

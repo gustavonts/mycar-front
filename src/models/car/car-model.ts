@@ -1,6 +1,5 @@
 export type CarModel = {
     id: string
-    fipeCode: string
     brand: string
     model: string
     version: string
