@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@uiw/react-md-editor": "^4.0.8",
+    "bcryptjs": "^3.0.3",
     "better-sqlite3": "^12.5.0",
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.45.0",
