@@ -2,15 +2,15 @@ import { CarModel } from "@/models/car/car-model";
 import { CarRepository } from "./car-repository";
 import { resolve } from "path";
 import { readFile, writeFile } from 'fs/promises'
-import { SIMULATE_WAIT_IN_MS } from "@/lib/constants";
 
+const simulateWaitMs = Number(process.env.SIMULATE_WAIT_IN_MS) || 0
 const ROOT_DIR = process.cwd()
 const JSON_CARS_FILE_PATH = resolve(ROOT_DIR, 'src', 'db', 'seed', 'cars.json')
 export class JsonCarRepository implements CarRepository {
 
     private async simulateWait() {
-        if(SIMULATE_WAIT_IN_MS <= 0) return
-        await new Promise(resolve => setTimeout(resolve, SIMULATE_WAIT_IN_MS))
+        if(simulateWaitMs <= 0) return
+        await new Promise(resolve => setTimeout(resolve, simulateWaitMs))
     }
 
     private async readFromDisk(): Promise<CarModel[]>{

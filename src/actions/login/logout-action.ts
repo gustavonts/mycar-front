@@ -1,0 +1,5 @@
+import { asyncDelay } from "@/utils/async-delay";
+
+export async function logoutAction() {
+    await asyncDelay(3000)
+}
