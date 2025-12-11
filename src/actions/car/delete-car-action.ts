@@ -1,9 +1,20 @@
 'use server'
 
+import { verifyLoginSession } from "@/lib/login/manage-login"
 import { carRepository } from "@/repositories/car"
 import { updateTag } from "next/cache"
 
 export async function deleteCarAction(id: string ) {
+
+    const isAuthenticated = await verifyLoginSession()
+    console.log(isAuthenticated)
+
+    if (!isAuthenticated) {
+        return {
+            error: 'Não autenticado.'
+        }
+    }
+    
 
     if(!id || typeof id !== 'string') {
         return {

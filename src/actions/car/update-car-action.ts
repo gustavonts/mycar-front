@@ -2,7 +2,7 @@
 
 import { makePartialPublicCar, makePublicCarFromDb, PublicCar } from "@/dto/car/dto"
 import { CarUpdateSchema } from "@/lib/car/validations"
-import { CarModel } from "@/models/car/car-model"
+import { requireLoginSessionOrRedirect, verifyLoginSession } from "@/lib/login/manage-login"
 import { carRepository } from "@/repositories/car"
 import { getZodErrorMessages } from "@/utils/get-zod-error-messages"
 import { updateTag } from 'next/cache'
@@ -14,6 +14,11 @@ type UpdateCarActionState = {
 }
 
 export async function updateCarAction(prevState: UpdateCarActionState, formData: FormData): Promise<UpdateCarActionState> {
+
+    const isAuthenticated = await verifyLoginSession()
+
+
+    
     
     if(!(formData instanceof FormData)) {
         return  {
@@ -41,6 +46,13 @@ export async function updateCarAction(prevState: UpdateCarActionState, formData:
     }
     
     const zodParsedObj = CarUpdateSchema.safeParse(formDataToObj)
+
+    if (!isAuthenticated) {
+        return {
+            formState: makePartialPublicCar(formDataToObj),
+            errors: ['Não autenticado.']
+        }
+    }
 
     if(!zodParsedObj.success) {
         const errors = getZodErrorMessages(zodParsedObj.error.format())

@@ -1,5 +1,7 @@
-import { verifyPassword } from "@/lib/login/manage-login";
-import { asyncDelay } from "@/utils/async-delay";
+'use server'
+
+import { createLoginSession, verifyPassword } from "@/lib/login/manage-login";
+import { redirect } from 'next/navigation'
 
 type LoginActionState = {
     username: string,
@@ -7,12 +9,20 @@ type LoginActionState = {
 }
 
 export async function loginAction(state: LoginActionState, formData: FormData) {
-    await asyncDelay(3000)
+    const allowLogin = Boolean(Number(process.env.ALLOW_LOGIN))
+
+    if(!allowLogin) {
+        return {
+            username: '',
+            error: 'Login not allowed'
+        }
+    }
+    // await asyncDelay(3000)
 
     if(!(formData instanceof FormData)) {
         return {
             username: '',
-            erros: 'Dados Inválidos'
+            error: 'Dados Inválidos'
         }
     }
 
@@ -20,6 +30,7 @@ export async function loginAction(state: LoginActionState, formData: FormData) {
     const password = formData.get('password')?.toString().trim() || ''
 
     if(!username || !password) {
+
         return {
             username,
             error: 'Digite o usuário e a senha'
@@ -32,15 +43,14 @@ export async function loginAction(state: LoginActionState, formData: FormData) {
         process.env.LOGIN_PASS || ''
     )
 
-    if(!isUsernameValid && !isPasswordValid) {
+
+    if(!isUsernameValid || !isPasswordValid) {
         return {
             username: '',
             error: 'Usuário ou senha inválidos'
         }
     }
 
-    return {
-        username: '',
-        error: ''
-    }
+    await createLoginSession(username)
+    redirect(`/admin/car`)
 }

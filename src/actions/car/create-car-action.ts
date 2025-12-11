@@ -2,10 +2,11 @@
 
 import { makePartialPublicCar, PublicCar } from "@/dto/car/dto"
 import { CarCreateSchema } from "@/lib/car/validations"
+import { requireLoginSessionOrRedirect, verifyLoginSession } from "@/lib/login/manage-login"
 import { CarModel } from "@/models/car/car-model"
 import { carRepository } from "@/repositories/car"
 import { getZodErrorMessages } from "@/utils/get-zod-error-messages"
-import { revalidateTag, updateTag } from 'next/cache'
+import { updateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { v4 as uuidV4 } from "uuid"
 
@@ -16,6 +17,8 @@ type CreateCarActionState = {
 }
 
 export async function createCarAction(prevState: CreateCarActionState, formData: FormData): Promise<CreateCarActionState> {
+
+    const isAuthenticated = await verifyLoginSession()
     
     if(!(formData instanceof FormData)) {
         return  {
@@ -37,6 +40,13 @@ export async function createCarAction(prevState: CreateCarActionState, formData:
         return {
             errors,
             formState: makePartialPublicCar(formDataToObj)
+        }
+    }
+
+    if (!isAuthenticated) {
+        return {
+            formState: makePartialPublicCar(formDataToObj),
+            errors: ['Não autenticado.']
         }
     }
 

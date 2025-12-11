@@ -1,7 +1,8 @@
 import { hashPassword } from "@/lib/login/manage-login"
 
-(async () => {
-    const minhaSenha = '123456'
-    const hashDaSuaSenhaEmBase64 = hashPassword(minhaSenha)
-    console.log(hashDaSuaSenhaEmBase64)
-})
+;(async () => {
+    const senha = "123456"
+    const hash = await hashPassword(senha)
+
+    console.log(hash)
+})()

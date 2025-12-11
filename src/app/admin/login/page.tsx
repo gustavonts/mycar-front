@@ -1,7 +1,18 @@
 import { LoginForm } from "@/components/admin/LoginForm";
+import ErrorMessage from "@/components/ErrorMessage";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Login'
+}
 
 export default function AdminLoginPage() {
-  return (
-      <LoginForm />
-  );
+  const allowLogin = Boolean(Number(process.env.ALLOW_LOGIN))
+
+    if(!allowLogin) {
+        return (
+            <ErrorMessage contentTitle={"403"} content={"Libere o sistema para realizar Login"} />
+      )
+    }
+    return <LoginForm />
 }
