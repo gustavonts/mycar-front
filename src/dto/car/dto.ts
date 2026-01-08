@@ -9,7 +9,7 @@ export const makePartialPublicCar = (car?: Partial<CarModel>): PublicCar => {
         model: car?.model ?? '',
         version: car?.version ?? '',
         year: car?.year ?? '',
-        plate: car?.plate ?? '',               // antes ok
+        plate: car?.plate ?? '',             
         fuel: car?.fuel ?? '',
         price: car?.price ?? '',
         mileage: car?.mileage ?? '',

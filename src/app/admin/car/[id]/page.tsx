@@ -1,6 +1,6 @@
 import { ManageCarForm } from "@/components/admin/ManageCarForm"
-import { makePublicCarFromDb } from "@/dto/car/dto"
-import { findCarByIdAdmin } from "@/lib/car/queries/admin"
+import { findCarByIdFromApiAdmin } from "@/lib/car/queries/admin"
+import { PublicCarForApiSchema } from "@/lib/car/schemas"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
@@ -18,11 +18,15 @@ type AdminCarIdPageProps = {
 
 export default async function AdminCarIdPage({params}: AdminCarIdPageProps) {
     const {id} = await params
-    const car = await findCarByIdAdmin(id).catch()
+    const carRes = await findCarByIdFromApiAdmin(id)
 
-    const publicCar = makePublicCarFromDb(car)
+    if(!carRes.success) {
+        console.log(carRes.errors)
+        notFound()
+    }
 
-    if (!car) notFound()
+    const car = carRes.data
+    const publicCar = PublicCarForApiSchema.parse(car)
 
     return (
         <div className="flex flex-col gap-6">

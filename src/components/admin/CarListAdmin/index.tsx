@@ -1,14 +1,24 @@
-import { findAllCarsAdmin } from "@/lib/car/queries/admin"
+import { findAllCarsFromApiAdmin } from "@/lib/car/queries/admin"
 import Link from "next/link"
 import { DeleteCarbutton } from "../DeleteCarButton"
 import ErrorMessage from "../../ErrorMessage"
 
 export default async function CarsListAdmin() {
-    const cars = await findAllCarsAdmin()
+    const carsRes = await findAllCarsFromApiAdmin()
+
+    if (!carsRes.success) {
+        console.log(carsRes.errors)
+        return (
+            <ErrorMessage contentTitle="Ei :D" content='Tente fazer login novamente!' />
+        )
+    }
+    
+    const cars = carsRes.data
 
     if(cars.length <= 0) return <ErrorMessage contentTitle={"Ei "} content={"Crie algum anúncio!"} />
     
 
+    
     return <div className="mb-16">
         {cars.map(car => {
             return <div key={car.id} className={`py-2 px-2 ${car.active ? '' : 'bg-slate-300'} flex gap-2 items-center justify-between hover:bg-slate-200`}>

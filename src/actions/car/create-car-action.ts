@@ -1,24 +1,23 @@
 'use server'
 
-import { makePartialPublicCar, PublicCar } from "@/dto/car/dto"
-import { CarCreateSchema } from "@/lib/car/validations"
-import { requireLoginSessionOrRedirect, verifyLoginSession } from "@/lib/login/manage-login"
-import { CarModel } from "@/models/car/car-model"
-import { carRepository } from "@/repositories/car"
+import {  CreateCarForApiSchema, PublicCarForApiDto, PublicCarForApiSchema } from "@/lib/car/schemas"
+import { getLoginSessionForApi  } from "@/lib/login/manage-login"
+import { authenticatedApiRequest } from "@/utils/authenticated-api-request"
+
 import { getZodErrorMessages } from "@/utils/get-zod-error-messages"
-import { updateTag } from 'next/cache'
-import { redirect } from 'next/navigation'
-import { v4 as uuidV4 } from "uuid"
+import { updateTag } from "next/cache"
+import { redirect } from "next/navigation"
+
 
 type CreateCarActionState = {
-    formState: PublicCar
+    formState: PublicCarForApiDto
     errors: string[]
     sucess?: true
 }
 
 export async function createCarAction(prevState: CreateCarActionState, formData: FormData): Promise<CreateCarActionState> {
 
-    const isAuthenticated = await verifyLoginSession()
+    const isAuthenticated = await getLoginSessionForApi()
     
     if(!(formData instanceof FormData)) {
         return  {
@@ -33,49 +32,46 @@ export async function createCarAction(prevState: CreateCarActionState, formData:
         formDataToObj[key] = value
     }
     
-    const zodParsedObj = CarCreateSchema.safeParse(formDataToObj)
+    const zodParsedObj = CreateCarForApiSchema.safeParse(formDataToObj)
 
     if(!zodParsedObj.success) {
         const errors = getZodErrorMessages(zodParsedObj.error.format())
         return {
             errors,
-            formState: makePartialPublicCar(formDataToObj)
+            formState: PublicCarForApiSchema.parse(formDataToObj)
         }
     }
 
     if (!isAuthenticated) {
         return {
-            formState: makePartialPublicCar(formDataToObj),
+            formState: PublicCarForApiSchema.parse(formDataToObj),
             errors: ['Não autenticado.']
         }
     }
 
-    const validCarData = zodParsedObj.data
-    const newCar: CarModel = {
-        ...validCarData,
-        images: JSON.stringify(validCarData.images),
-        id: uuidV4(),
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-    };
+    const newCar = zodParsedObj.data
 
-    try {
-        await carRepository.create(newCar)
-    } catch(e: unknown) {
-        if(e instanceof Error) {
-            return {
-                formState: newCar,
-                errors: [e.message]
-            }
+    const createCarResponse = await authenticatedApiRequest<PublicCarForApiDto>(
+        `/car/me`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newCar)
         }
+    )
 
+    if(!createCarResponse.success) {
         return {
-            formState: newCar,
-            errors: ['Erro desconhecido'] 
+            formState: PublicCarForApiSchema.parse(formDataToObj),
+            errors: createCarResponse.errors
         }
     }
 
+    const createdCar = createCarResponse.data
+
     updateTag('cars')
-    redirect(`/admin/car/${newCar.id}?created=1`)
+    redirect(`/admin/car/${createdCar.id}?created=1`)
 
 }

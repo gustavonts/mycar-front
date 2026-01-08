@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
 
     const jwtSession = request.cookies.get(process.env.LOGIN_COOKIE_NAME || 'loginSession')?.value
 
-    const isAuthenticated = await verifyJwt(jwtSession)
+    const isAuthenticated = !!jwtSession
 
     if(!isAuthenticated) {
         const loginUrl = new URL('/admin/login', request.url)

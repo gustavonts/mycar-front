@@ -26,17 +26,17 @@ export async function verifyPassword(password: string, base64Hash: string) {
     return bcrypt.compare(password, hash)
 }
 
-export async function createLoginSession(username: string) {
-    const expiresAt = new Date(Date.now() + loginExpSeconds * 1000)
-    const loginSession = await signJwt({username, expiresAt})
-    const cookieStore = await cookies()
+export async function createLoginSessionFromApi(jwt: string) {
+  const expiresAt = new Date(Date.now() + loginExpSeconds * 1000);
+  const loginSession = jwt;
+  const cookieStore = await cookies();
 
-    cookieStore.set(loginCookieName, loginSession, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'strict',
-        expires: expiresAt
-    })
+  cookieStore.set(loginCookieName, loginSession, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'strict',
+    expires: expiresAt,
+  });
 }
 
 export async function deleteLoginSession() {
@@ -45,7 +45,7 @@ export async function deleteLoginSession() {
     cookieStore.delete(loginCookieName)
 }
 
-export async function getLoginSession() {
+export async function getLoginSessionForApi() {
     const cookieStore = await cookies()
 
     const jwt = cookieStore.get(loginCookieName)?.value
@@ -56,18 +56,18 @@ export async function getLoginSession() {
 }
 
 export async function verifyLoginSession() {
-    const jwtPayload = await getLoginSession()
+    const jwtPayload = await getLoginSessionForApi()
 
     if(!jwtPayload) return false
 
     return jwtPayload.username === process.env.LOGIN_USER
 }
 
-export async function requireLoginSessionOrRedirect() {
-    const isAuthenticated = await getLoginSession()
+export async function requireLoginSessionForApiOrRedirect() {
+    const isAuthenticated = await getLoginSessionForApi()
 
     if (!isAuthenticated) {
-        redirect('/admin/login')
+        redirect('/login')
     }
     
 }

@@ -1,24 +1,20 @@
 'use server'
 
-import { makePartialPublicCar, makePublicCarFromDb, PublicCar } from "@/dto/car/dto"
-import { CarUpdateSchema } from "@/lib/car/validations"
-import { requireLoginSessionOrRedirect, verifyLoginSession } from "@/lib/login/manage-login"
-import { carRepository } from "@/repositories/car"
+import { PublicCarForApiDto, PublicCarForApiSchema, UpdateCarForApiSchema } from "@/lib/car/schemas"
+import { getLoginSessionForApi } from "@/lib/login/manage-login"
+import { authenticatedApiRequest } from "@/utils/authenticated-api-request"
 import { getZodErrorMessages } from "@/utils/get-zod-error-messages"
 import { updateTag } from 'next/cache'
 
 type UpdateCarActionState = {
-    formState: PublicCar
+    formState: PublicCarForApiDto
     errors: string[]
     sucess?: true
 }
 
 export async function updateCarAction(prevState: UpdateCarActionState, formData: FormData): Promise<UpdateCarActionState> {
 
-    const isAuthenticated = await verifyLoginSession()
-
-
-    
+    const isAuthenticated = await getLoginSessionForApi()
     
     if(!(formData instanceof FormData)) {
         return  {
@@ -40,16 +36,12 @@ export async function updateCarAction(prevState: UpdateCarActionState, formData:
         }  
     }
 
-    const formDataToObj: Record<string, any> = {}
-    for (const [key, value] of formData.entries()) {
-        formDataToObj[key] = value
-    }
-    
-    const zodParsedObj = CarUpdateSchema.safeParse(formDataToObj)
+    const formDataToObj = Object.fromEntries(formData.entries()) 
+    const zodParsedObj = UpdateCarForApiSchema.safeParse(formDataToObj)
 
     if (!isAuthenticated) {
         return {
-            formState: makePartialPublicCar(formDataToObj),
+            formState: PublicCarForApiSchema.parse(formDataToObj),
             errors: ['Não autenticado.']
         }
     }
@@ -58,37 +50,35 @@ export async function updateCarAction(prevState: UpdateCarActionState, formData:
         const errors = getZodErrorMessages(zodParsedObj.error.format())
         return {
             errors,
-            formState: makePartialPublicCar(formDataToObj)
+            formState: PublicCarForApiSchema.parse(formDataToObj)
         }
     }
 
-    const validCarData = zodParsedObj.data
-    const newCar = {
-        ...validCarData,
-    };
+    const newCar = zodParsedObj.data
 
-    let car
-
-    try {
-        car = await carRepository.update(id, newCar)
-    } catch(e: unknown) {
-        if(e instanceof Error) {
-            return {
-                formState: makePartialPublicCar(formDataToObj),
-                errors: [e.message]
+    const updateCarResponse = await authenticatedApiRequest<PublicCarForApiDto> (
+        `/car/me/${id}`,
+        {
+            method: 'PATCH',
+            body: JSON.stringify(newCar),
+            headers: {
+                'Content-Type': 'application/json'
             }
         }
+    )
 
+    if(!updateCarResponse.success) {
         return {
-            formState: makePartialPublicCar(formDataToObj),
-            errors: ['Erro desconhecido'] 
+            formState: PublicCarForApiSchema.parse(formDataToObj),
+            errors: updateCarResponse.errors
         }
     }
 
+    const car = updateCarResponse.data
     updateTag('cars')
 
     return {
-        formState: makePublicCarFromDb(car),
+        formState: PublicCarForApiSchema.parse(car),
         errors: [],
         sucess: true
     }

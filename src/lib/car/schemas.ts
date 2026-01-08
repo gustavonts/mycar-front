@@ -2,6 +2,7 @@
 import { isUrlOrRelativePath } from '@/utils/isUrlOrRelativePath';
 import sanitizeHtml from 'sanitize-html';
 import { z } from 'zod';
+import { PublicUserSchema } from '../user/schemas';
 
 const CarBaseSchema = z.object({
   brand: z
@@ -98,4 +99,41 @@ export const CarCreateSchema = CarBaseSchema;
 export const CarUpdateSchema = CarBaseSchema.extend({
   // id: z.string().uuid('ID inválido'),
 });
+
+export const CreateCarForApiSchema = CarBaseSchema.omit({
+  user: true,
+  active: true
+}).extend({})
+
+export const UpdateCarForApiSchema = CarBaseSchema.omit({
+  user: true,
+}).extend({})
+
+export const PublicCarForApiSchema = CarBaseSchema.extend({
+    id: z.string().default(''),
+    brand: z.string().default(''),
+    model: z.string().default(''),
+    version: z.string().default(''),
+    year: z.string().default(''),
+    plate: z.string().default(''),
+    fuel: z.string().default(''),
+    price: z.string().default(''),
+    mileage: z.string().default(''),
+    color: z.string().default(''),
+    description: z.string().default(''),
+    images: z.string().default(''),
+    user: PublicUserSchema.optional().default({
+      id: '',
+      email: '',
+      name: ''
+
+    }),
+    createdAt: z.string().default(''),
+})
+
+export type CreateCarForApiDto = z.infer<typeof CreateCarForApiSchema>
+export type UpdateCarForApiDto = z.infer<typeof UpdateCarForApiSchema>
+export type PublicCarForApiDto = z.infer<typeof PublicCarForApiSchema>
+
+
 
