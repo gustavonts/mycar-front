@@ -6,13 +6,13 @@ type ApiRequestError = {
     status: number
 }
 
-type ApiRequestSucess<T> = {
+type ApiRequestSuccess<T> = {
     data: T 
     success: true
     status: number
 }
 
-export type ApiRequest<T> = ApiRequestError | ApiRequestSucess<T>
+export type ApiRequest<T> = ApiRequestError | ApiRequestSuccess<T>
 
 export const apiUrl = process.env.API_URL || 'http://localhost:3001'
 

@@ -12,7 +12,7 @@ import { redirect } from "next/navigation"
 type CreateCarActionState = {
     formState: PublicCarForApiDto
     errors: string[]
-    sucess?: true
+    success?: true
 }
 
 export async function createCarAction(prevState: CreateCarActionState, formData: FormData): Promise<CreateCarActionState> {

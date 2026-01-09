@@ -1,14 +1,21 @@
 import CarCoverImage from "../CarCoverImage"
 import { CarSumary } from "../CarSumary"
-import { findAllPublicCarsCached } from "@/lib/car/queries/public"
 import ErrorMessage from "../ErrorMessage"
+import { findAllCarsFromApiAdmin } from "@/lib/car/queries/admin"
 
 export async function CarsList() {
-    const cars = await findAllPublicCarsCached()
+    const carsRes = await findAllCarsFromApiAdmin()
 
-    if(cars.length <= 0) return <ErrorMessage contentTitle={"Ops! "} content={"Ainda não criamos nenhum Carro!"} />
+    if(!carsRes.success) {
+        return null
+    }
+
+    const cars = carsRes.data
+
+    if(cars.length <= 1) {
+        return null    
+    }
     
-
     return (
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-16">
             {cars.slice(1).map(car => {

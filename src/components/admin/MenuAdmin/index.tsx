@@ -1,7 +1,7 @@
 'use client'
 
 import { logoutAction } from "@/actions/login/logout-action";
-import { CarFrontIcon, CarIcon, CircleXIcon, FileTextIcon, HourglassIcon, HouseIcon, LogOutIcon, MenuIcon, PlusIcon } from "lucide-react";
+import { CarFrontIcon, CarIcon, CircleXIcon, FileTextIcon, HourglassIcon, HouseIcon, LogOutIcon, MenuIcon, PlusIcon, UserPenIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
@@ -57,6 +57,10 @@ export default function MenuAdmin() {
             <Link href="/admin/car" className={linkClasses}>
                 <CarFrontIcon />
                 Cars
+            </Link>
+            <Link href="/admin/user" className={linkClasses}>
+                <UserPenIcon />
+                Seus dados
             </Link>
             <Link href="/admin/car/new" className={linkClasses}>
                 <PlusIcon />

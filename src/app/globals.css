@@ -1,3 +1,9 @@
 @import 'tailwindcss';
 
 @custom-variant dark (&:where(.dark, .dark *))
+
+@layer utilities {
+    .niceinput {
+        @apply pointer-events-none absolute w-o h-0 overflow-hidden
+    }
+}

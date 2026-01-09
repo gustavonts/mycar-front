@@ -59,7 +59,7 @@ export function ManageCarForm(props: ManageCarFormProps) {
     }, [state.errors])
 
     useEffect(() => {
-        if (state.sucess) {
+        if (state.success) {
             toast.dismiss()
             toast.success('Carro atualizado com sucesso')
         }

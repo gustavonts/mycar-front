@@ -9,7 +9,7 @@ import { updateTag } from 'next/cache'
 type UpdateCarActionState = {
     formState: PublicCarForApiDto
     errors: string[]
-    sucess?: true
+    success?: true
 }
 
 export async function updateCarAction(prevState: UpdateCarActionState, formData: FormData): Promise<UpdateCarActionState> {
@@ -80,6 +80,6 @@ export async function updateCarAction(prevState: UpdateCarActionState, formData:
     return {
         formState: PublicCarForApiSchema.parse(car),
         errors: [],
-        sucess: true
+        success: true
     }
 }

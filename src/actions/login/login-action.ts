@@ -4,6 +4,7 @@ import { createLoginSessionFromApi } from "@/lib/login/manage-login";
 import { LoginSchemas } from "@/lib/login/schemas";
 import { apiRequest } from "@/utils/api-request";
 import { getZodErrorMessages } from "@/utils/get-zod-error-messages";
+import { verifyHoneypotInput } from "@/utils/verify-honeypot-input";
 import { redirect } from 'next/navigation'
 import { success } from "zod";
 
@@ -21,7 +22,15 @@ export async function loginAction(state: LoginActionState, formData: FormData) {
             errors: ['Login not allowed']
         }
     }
-    // await asyncDelay(3000)
+    
+    const isBot = await verifyHoneypotInput(formData)
+
+    if (isBot) {
+        return {
+            email: '',
+            errors: ['nice'],
+        }
+    }
 
     if(!(formData instanceof FormData)) {
         return {

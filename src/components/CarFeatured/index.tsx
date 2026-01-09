@@ -1,12 +1,24 @@
 import CarCoverImage from "../CarCoverImage";
 import { CarSumary } from "../CarSumary";
-import { findAllPublicCarsCached } from "@/lib/car/queries/public";
+import { findAllPublicCarsFromApiCached } from "@/lib/car/queries/public";
 import ErrorMessage from "../ErrorMessage";
 
 export async function CarFeatured(){
-    const cars = await findAllPublicCarsCached()
+    const carsRes = await findAllPublicCarsFromApiCached()
 
-    if(cars.length <= 0) return <ErrorMessage contentTitle={"Ops! "} content={"Ainda não criamos nenhum Carro!"} />
+    const noCarsFound = (
+        <ErrorMessage contentTitle={"Ops! "} content={"Ainda não criamos nenhum Carro!"} />
+    )
+
+    if (!carsRes.success) {
+        return noCarsFound
+    }
+
+    const cars = carsRes.data
+
+    if (cars.length <= 0) {
+        return noCarsFound
+    }
 
     const car = cars[0]
     
