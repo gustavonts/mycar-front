@@ -17,7 +17,8 @@ export const findCarByIdFromApiAdmin = async (id: string) => {
 
 export const findAllCarsFromApiAdmin = async () => {
     const carsResponse = await authenticatedApiRequest<CarModelFromApi[]> (
-        `/car`,
+        `/car/me`,
+    
         {
             headers: {
                 'Content-Type': 'application/json'

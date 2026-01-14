@@ -7,7 +7,7 @@ export default async function HomePage() {
   return (
     <div>
       <Suspense fallback={<SpinLoader className="min-h-20 mb-16 "/>}>
-        <CarFeatured />
+        {/* <CarFeatured /> */}
         <CarsList />
       </Suspense>
     </div>

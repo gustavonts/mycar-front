@@ -6,8 +6,8 @@ type CarDateProps = {
 
 export function CarDate({dateTime} : CarDateProps) {
     return (
-        <time className="text-slate-600 text-sm/tight" dateTime={dateTime}>
-            {formatDatetime(dateTime)} - {formatRelativeDate(dateTime)}
+        <time className="text-sm/tight text-gray-400" dateTime={dateTime}>
+            {formatDatetime(dateTime)} - Anunciado {formatRelativeDate(dateTime)}
         </time>
     )
 }

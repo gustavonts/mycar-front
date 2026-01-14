@@ -5,22 +5,22 @@ import { CarSumary } from "../CarSumary"
 export async function CarsList() {
     const carsRes = await findAllPublicCarsFromApiCached()
 
-    if(!carsRes.success) {
+    if (!carsRes.success || carsRes.data.length === 0) {
         return null
     }
 
     const cars = carsRes.data
 
-    if(cars.length <= 1) {
-        return null    
-    }
-    
     return (
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-16">
-            {cars.slice(1).map(car => {
-                const carLink =  `/car/${car.id}`
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-16 justify-items-center hover:cursor-pointer" >
+            {cars.map(car => {
+                const carLink = `/car/${car.id}`
                 return (
-                    <div key={car.id} className="flex flex-col gap-4 group">
+                    <a
+                        key={car.id} 
+                        className="flex flex-col gap-4 bg-white rounded-2xl w-80 shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden"
+                        href={carLink}
+                    >
                         {car.images[0] && (
                             <CarCoverImage 
                                 linkProps={{ href: carLink }} 
@@ -29,22 +29,27 @@ export async function CarsList() {
                                     height: 720,
                                     src: car.images[0],
                                     alt: car.model,
+                                    className: "object-cover h-48 w-full",
                                     priority: true,
                                     unoptimized: true
                                 }} 
                             />
                         )}
-                       <CarSumary 
-                            carHeading={'h1'}
-                            carLink={carLink} 
-                            createdAt={car.createdAt} 
-                            brand={car.brand} 
-                            model={car.model} 
-                            version={car.version} 
-                            year={car.year} 
-                            price={car.price} 
-                            description={car.description}  />
-                    </div>
+
+                        <div className="p-4 flex flex-col gap-2">
+                            <CarSumary 
+                                carHeading={'h2'}
+                                carLink={carLink} 
+                                createdAt={car.createdAt} 
+                                brand={car.brand} 
+                                model={car.model} 
+                                version={car.version} 
+                                year={car.year} 
+                                price={car.price} 
+                                description={car.description}  
+                            />
+                        </div>
+                    </a>
                 )
             })}
         </div>

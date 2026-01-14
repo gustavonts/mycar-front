@@ -1,5 +1,6 @@
 import CarHeading from "../CarHeading";
 import { CarDate } from "../CarDate";
+import { formatMoney } from "@/utils/format-money";
 
 type CarSumaryProps = {
     carHeading: 'h1' | 'h2'
@@ -13,21 +14,37 @@ type CarSumaryProps = {
     description?: string | null
 }
 
-export async function CarSumary({carHeading, carLink, createdAt, brand, model, version, year, price, description} : CarSumaryProps) {
+export function CarSumary({
+    carHeading,
+    carLink,
+    createdAt,
+    brand,
+    model,
+    version,
+    year,
+    price,
+    description
+}: CarSumaryProps) {
+
     return (
-         <div className="flex flex-col gap-4 sm:justify-center">
-            <CarDate dateTime={createdAt} />
+        <div className="flex flex-col gap-2 text-center">
+            <CarDate dateTime={createdAt}  />
+            
             <CarHeading url={carLink} as={carHeading}>
-                <div>
-                    {brand} {model} {version} {year}
-                </div>
+                <h2 className="text-lg font-semibold text-gray-800">
+                    {brand} {model} {version} ({year})
+                </h2>
             </CarHeading>
-            <div>
-                {price}
+
+            <div className="text-xl font-bold text-blue-600">
+                {formatMoney(price)}
             </div>
-            <p>
-                {description}
-            </p>
+
+            {description && (
+                <p className="text-gray-600 text-sm line-clamp-3">
+                    {description}
+                </p>
+            )}
         </div>
     )
 }
