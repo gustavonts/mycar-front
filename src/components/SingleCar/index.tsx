@@ -23,10 +23,11 @@ export async function SingleCar({id}: SingleCarProps) {
             <header className="group flex flex-col gap-4 mb-4">
                 <Image 
                     className="rounded-xl"
-                    src={car.images} 
-                    width={1200} 
-                    height={720} 
-                    alt={car.model} />
+                    src={car.images[0]} 
+                    width={500} 
+                    height={500} 
+                    alt={car.model} 
+                    unoptimized={true}/>
             
                 <CarHeading url={`/car/${car.id}`} as={"h1"}>{car.brand} {car.model} {car.version} {car.year}</CarHeading>
                 <p>{car.user.name} | <CarDate dateTime={car.createdAt} /></p>

@@ -42,7 +42,7 @@ export async function uploadImageAction(formData: FormData): Promise<uploadImage
     }
 
     const uploadResponse = await authenticatedApiRequest<{url: string}>(
-        `${process.env.API_URL}/upload`,
+        '/upload',
         {
             method: 'POST',
             body: formData
@@ -54,7 +54,7 @@ export async function uploadImageAction(formData: FormData): Promise<uploadImage
     }
 
     const imgServerUrl = process.env.IMAGE_SERVER_URL || 'http://localhost:3000/uploads'
-    const url = `${process.env.IMAGE_SERVER_URL}${uploadResponse.data.url}`
+    const url = `${imgServerUrl}${uploadResponse.data.url}`
 
     return makeResult({url})
 }

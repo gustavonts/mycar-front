@@ -2,47 +2,43 @@
 
 import { uploadImageAction } from "@/actions/upload/upload-image-action"
 import { Button } from "@/components/Button"
-import { ImageUpIcon } from "lucide-react"
+import { ImageUpIcon, Trash2Icon } from "lucide-react"
 import { useRef, useState, useTransition } from "react"
 import { toast } from "react-toastify"
 
 type ImageUploaderProps = {
     disabled?: boolean
+    initialImages?: string[]
 }
 
-export function ImageUploader({ disabled }: ImageUploaderProps) {
+export function ImageUploader({ disabled, initialImages = [] }: ImageUploaderProps) {
 
     const uploadMaxSize = Number(process.env.NEXT_PUBLIC_IMAGE_UPLOAD_MAX_SIZE) || 921600
 
     const fileInputRef = useRef<HTMLInputElement>(null)
-
     const [isUploading, startTransition] = useTransition()
 
-    const [imgUrl, setImgUrl] = useState('')
+    const [images, setImages] = useState<string[]>(initialImages)
 
     function handleChooseFile() {
-        if(!fileInputRef.current) return
-        fileInputRef.current.click()
+        fileInputRef.current?.click()
     }
 
     function handleChange() {
         toast.dismiss()
-        
-        if(!fileInputRef.current) return
 
-        const fileInput = fileInputRef.current
-        const file = fileInput?.files?.[0]
+        const file = fileInputRef.current?.files?.[0]
+        if (!file) return
 
-        if(!file) {
-            setImgUrl('')
+        if (file.size > uploadMaxSize) {
+            toast.error(`Imagem muito grande. Máx: ${(uploadMaxSize / 1024).toFixed(2)}KB`)
+            fileInputRef.current!.value = ''
             return
         }
 
-        if (file.size > uploadMaxSize) {
-            const readableMaxSize = (uploadMaxSize / 1024).toFixed(2)
-            toast.error(`Imagem muito grande. Max.: ${readableMaxSize}KB`)
-            fileInput.value = ''
-            setImgUrl('')
+        if (!file.type.startsWith('image/')) {
+            toast.error('Arquivo inválido')
+            fileInputRef.current!.value = ''
             return
         }
 
@@ -54,40 +50,57 @@ export function ImageUploader({ disabled }: ImageUploaderProps) {
 
             if (result.error) {
                 toast.error(result.error)
-                fileInput.value = ''
-                setImgUrl('')
                 return
             }
 
-            setImgUrl(result.url)
+            setImages(prev => [...prev, result.url])
             toast.success('Imagem enviada')
         })
 
-        fileInput.value = ''
+        fileInputRef.current!.value = ''
+    }
+
+    function removeImage(url: string) {
+        setImages(prev => prev.filter(img => img !== url))
     }
 
     return (
         <div className="flex flex-col gap-4 py-4">
-            <Button type="button" className="self-start" onClick={handleChooseFile} disabled={isUploading || disabled}>
+            <Button
+                type="button"
+                onClick={handleChooseFile}
+                disabled={isUploading || disabled}
+                className="self-start"
+            >
                 <ImageUpIcon />
-                Enviar uma imagem
+                Enviar imagem
             </Button>
 
-            {!!imgUrl && (
-                <div className='flex flex-col gap-4'>
-                    <input type="hidden" name="images" value={imgUrl} />
+            {images.map((url, i) => (
+                <input key={i} type="hidden" name="images" value={url} />
+            ))}
 
-                    <p><b>URL: </b> {imgUrl}</p>
-                    <img className='rounded-lg' src={imgUrl} />
-                </div>
-            )}
+            <div className="grid grid-cols-2 gap-4">
+                {images.map(url => (
+                    <div key={url} className="relative">
+                        <img src={url} className="rounded-lg" />
+                        <button
+                            type="button"
+                            onClick={() => removeImage(url)}
+                            className="absolute top-2 right-2 bg-black/60 p-1 rounded"
+                        >
+                            <Trash2Icon size={16} color="white" />
+                        </button>
+                    </div>
+                ))}
+            </div>
 
-            <input 
-                ref={fileInputRef} 
-                className="hidden" 
-                type="file" 
-                accept="image/*" 
-                onChange={handleChange} 
+            <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleChange}
                 disabled={isUploading || disabled}
             />
         </div>

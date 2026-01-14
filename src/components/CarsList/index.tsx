@@ -21,22 +21,19 @@ export async function CarsList() {
                 const carLink =  `/car/${car.id}`
                 return (
                     <div key={car.id} className="flex flex-col gap-4 group">
-                        <CarCoverImage 
-                            linkProps={
-                                {
-                                    href: carLink
-                                }
-                            } 
-                            imageProps={
-                                {
+                        {car.images[0] && (
+                            <CarCoverImage 
+                                linkProps={{ href: carLink }} 
+                                imageProps={{
                                     width: 1200,
                                     height: 720,
-                                    src: car.images,
+                                    src: car.images[0],
                                     alt: car.model,
-                                    priority: true
-                                }
-                            } 
-                        />
+                                    priority: true,
+                                    unoptimized: true
+                                }} 
+                            />
+                        )}
                        <CarSumary 
                             carHeading={'h1'}
                             carLink={carLink} 
