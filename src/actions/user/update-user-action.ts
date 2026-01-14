@@ -19,6 +19,7 @@ type UpdateUserActionState = {
 
 export async function updateUserAction(state: UpdateUserActionState, formData: FormData): Promise<UpdateUserActionState> {
     const user = await getPublicUserFromApi();
+    console.log(`USER: ${user}`)
 
     if (!user) {
         await deleteLoginSession();

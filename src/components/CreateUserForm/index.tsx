@@ -1,16 +1,22 @@
+'use client'
+
 import { InputText } from "../inputs/InputText";
-import { Link, UserRoundIcon } from "lucide-react";
+import { UserRoundIcon } from "lucide-react";
 import { Button } from "../Button";
 import { useActionState, useEffect } from "react";
 import { createUserAction } from "@/actions/user/create-user-action";
-import { PublicUserSchema } from "@/lib/user/schemas";
 import { toast } from "react-toastify";
-import { HoneypotInput } from "../HoneypotInput";
+import Link from "next/link";
 
 export function CreateUserForm() {
 
     const [state, action, isPending] = useActionState(createUserAction, {
-        user: PublicUserSchema.parse({}),
+        user: {
+            name: '',
+            email: '',
+            password: '',
+            password2: ''
+        },
         errors: [],
         success: false
     })
@@ -21,6 +27,7 @@ export function CreateUserForm() {
             state.errors.forEach(error => toast.error(error))
         }
     }, [state])
+
     return (
         <div className={'flex items-center justify-center text-center max-w-sm mt-16 mb-32 mx-auto'}>
             <form action={action} className="flex-1 flex flex-col gap-6">
@@ -44,14 +51,14 @@ export function CreateUserForm() {
                 />
                 <InputText 
                     type="password"
-                    name="email"
+                    name="password"
                     labelText="Senha"
                     placeholder="Digite sua senha"
                     disabled={isPending}
                     required    
                 />
                 <InputText 
-                    type="password2"
+                    type="password"
                     name="password2"
                     labelText="Repetir senha"
                     placeholder="Digite sua senha novamente"
@@ -59,14 +66,12 @@ export function CreateUserForm() {
                     required    
                 />
 
-                <HoneypotInput />
-
                 <Button disabled={isPending} type='submit' className='mt-4'>
                     <UserRoundIcon />
                     {!isPending && 'Criar Conta'}   
                     {isPending && 'Criando...'}
                 </Button>
-                <p className="text-sm/tight">
+                <p className="text-sm/tight hover:text-blue-500">
                     <Link href="/login">Já tem conta? Entrar</Link>
                 </p>
             </form>

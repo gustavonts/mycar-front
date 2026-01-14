@@ -15,7 +15,7 @@ export const makePartialPublicCar = (car?: Partial<CarModel>): PublicCar => {
         mileage: car?.mileage ?? '',
         color: car?.color ?? '',
         description: car?.description ?? '',   
-        images: car?.images ?? [],            
+        images: car?.images ?? '',            
         active: car?.active ?? false,
         user: car?.user ?? '',
         createdAt: car?.createdAt ?? new Date().toISOString(), 

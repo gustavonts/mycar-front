@@ -3,14 +3,14 @@ import CarHeading from "../CarHeading"
 import { CarDate } from "../CarDate"
 import { SafeMarkdown } from "../SafeMarkdown"
 import { notFound } from "next/navigation"
-import { findCarByIdFromApiAdmin } from "@/lib/car/queries/admin"
+import { findPublicCarByIdFromApi } from "@/lib/car/queries/public"
 
 type SingleCarProps = {
     id: string
 }
 
 export async function SingleCar({id}: SingleCarProps) {
-    const carRes = await findCarByIdFromApiAdmin(id)
+    const carRes = await findPublicCarByIdFromApi(id)
 
     if(!carRes.success) {
         notFound()
@@ -23,7 +23,7 @@ export async function SingleCar({id}: SingleCarProps) {
             <header className="group flex flex-col gap-4 mb-4">
                 <Image 
                     className="rounded-xl"
-                    src={car.images[0]} 
+                    src={car.images} 
                     width={1200} 
                     height={720} 
                     alt={car.model} />

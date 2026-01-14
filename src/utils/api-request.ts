@@ -1,5 +1,3 @@
-import { string } from "zod"
-
 type ApiRequestError = {
     errors: string[]
     success: false
@@ -14,23 +12,23 @@ type ApiRequestSuccess<T> = {
 
 export type ApiRequest<T> = ApiRequestError | ApiRequestSuccess<T>
 
-export const apiUrl = process.env.API_URL || 'http://localhost:3001'
-
+export const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001"
 
 export async function apiRequest<T> (
     url: string,
     options?: RequestInit
 ): Promise<ApiRequest<T>> {
-    const fullurl = `${apiUrl}${url}`
+    const fullUrl = `${apiUrl}${url}`
 
     try {
-        const res = await fetch(url, options)
+        const res = await fetch(fullUrl, options)
         const json = await res.json().catch(() => null)
 
         if (!res.ok) {
-            const errors = Array.isArray(json?.message)
-            ? json.message
-            : [json?.message || 'Erro inesperado']
+            const message = json?.message
+            const errors = Array.isArray(message)
+            ? message
+            : [message ?? 'Erro inesperado']
 
             return {
                 errors,

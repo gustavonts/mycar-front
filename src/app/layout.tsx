@@ -26,7 +26,6 @@ export default function RootLayout({children,}: Readonly<RootLayoutprops>) {
             {children}
           <Footer />
         </ Container>
-
         <ToastifyContainer />
       </body>
     </html>

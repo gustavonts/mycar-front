@@ -1,6 +1,6 @@
 import 'server-only'
+
 import { getLoginSessionForApi } from "@/lib/login/manage-login"
-import { redirect } from "next/navigation"
 import { apiRequest, ApiRequest } from "./api-request"
 
 export async function authenticatedApiRequest<T>(path: string, options?: RequestInit): Promise<ApiRequest<T>> {
@@ -24,6 +24,8 @@ export async function authenticatedApiRequest<T>(path: string, options?: Request
         Authorization: `Bearer ${jwtToken}`,
         ...options?.headers
     }
+    
+    console.log(headers)
 
     return apiRequest<T>(path, {
         ...options,

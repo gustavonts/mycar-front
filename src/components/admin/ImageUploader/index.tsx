@@ -85,7 +85,6 @@ export function ImageUploader({ disabled }: ImageUploaderProps) {
             <input 
                 ref={fileInputRef} 
                 className="hidden" 
-                name="images" 
                 type="file" 
                 accept="image/*" 
                 onChange={handleChange} 

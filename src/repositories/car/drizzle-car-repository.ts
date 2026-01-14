@@ -12,10 +12,7 @@ export class DrizzleCarRepository implements CarRepository {
             where: (cars, {eq}) => eq(cars.active, true)
         })
 
-        return cars.map((car) => ({
-            ...car,
-            images: parseImages(car.images),
-        }));
+        return cars
     }
 
     async findByIdPublic(id: string): Promise<CarModel> {
@@ -26,10 +23,7 @@ export class DrizzleCarRepository implements CarRepository {
 
         if (!car) throw new Error('Carro não encontrado para ID')
 
-        return {
-            ...car,
-            images: parseImages(car.images),
-        };
+        return car
     }
     
     async findAll(): Promise<CarModel[]> {
@@ -37,10 +31,7 @@ export class DrizzleCarRepository implements CarRepository {
             orderBy: (cars, {desc}) => desc(cars.createdAt)
         })
 
-        return cars.map((car) => ({
-            ...car,
-            images: parseImages(car.images),
-        }));
+        return cars
     }
 
     async findById(id: string): Promise<CarModel> {
@@ -51,10 +42,7 @@ export class DrizzleCarRepository implements CarRepository {
 
         if (!car) throw new Error('Carro não encontrado para ID')
 
-        return {
-            ...car,
-            images: parseImages(car.images),
-        };
+        return car
     }
     
     async create(car: CarModel): Promise<CarModel> {

@@ -1,10 +1,9 @@
+import { findAllPublicCarsFromApiCached } from "@/lib/car/queries/public"
 import CarCoverImage from "../CarCoverImage"
 import { CarSumary } from "../CarSumary"
-import ErrorMessage from "../ErrorMessage"
-import { findAllCarsFromApiAdmin } from "@/lib/car/queries/admin"
 
 export async function CarsList() {
-    const carsRes = await findAllCarsFromApiAdmin()
+    const carsRes = await findAllPublicCarsFromApiCached()
 
     if(!carsRes.success) {
         return null
@@ -32,7 +31,7 @@ export async function CarsList() {
                                 {
                                     width: 1200,
                                     height: 720,
-                                    src: car.images[0],
+                                    src: car.images,
                                     alt: car.model,
                                     priority: true
                                 }

@@ -6,10 +6,9 @@ import { InputText } from '@/components/inputs/InputText';
 import { LogInIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useActionState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { HoneypotInput } from '../HoneypotInput';
 
 export function LoginForm() {
 
@@ -72,15 +71,13 @@ export function LoginForm() {
           disabled={isPending}
           required
         />
-
-        <HoneypotInput />
-
+        
         <Button disabled={isPending} type='submit' className='mt-4'>
           <LogInIcon />
           Entrar
         </Button>
 
-        <p className='text-sm/tight'>
+        <p className='text-sm/tight hover:text-blue-500'>
           <Link href='/user/new'>Criar minha conta</Link>
         </p>
       </form>

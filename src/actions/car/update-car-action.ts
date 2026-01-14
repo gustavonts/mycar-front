@@ -17,68 +17,67 @@ export async function updateCarAction(prevState: UpdateCarActionState, formData:
     const isAuthenticated = await getLoginSessionForApi()
     
     if(!(formData instanceof FormData)) {
-        return  {
-            formState: {
-                ...prevState.formState,
-            },
-            errors: ['Dados Inválidos']
+        return {
+            formState: prevState.formState,
+            errors: ['Dados inválidos']
         }
     }
 
-    const id = formData.get('id')?.toString()  || ''
-
-    if (!id || typeof id  !== 'string') {
-        return  {
-            formState: {
-                ...prevState.formState,
-            },
-            errors: ['ID Inválidos']
-        }  
-    }
-
-    const formDataToObj = Object.fromEntries(formData.entries()) 
-    const zodParsedObj = UpdateCarForApiSchema.safeParse(formDataToObj)
-
-    if (!isAuthenticated) {
+    const id = formData.get('id')?.toString() || ''
+    if (!id) {
         return {
-            formState: PublicCarForApiSchema.parse(formDataToObj),
-            errors: ['Não autenticado.']
+            formState: prevState.formState,
+            errors: ['ID inválido']
         }
     }
 
-    if(!zodParsedObj.success) {
-        const errors = getZodErrorMessages(zodParsedObj.error.format())
+    const formDataToObj = Object.fromEntries(formData.entries()) as any
+
+    const files = formData.getAll('images') as File[]
+    if (files.length > 0) {
+        formDataToObj.images = files
+    } else {
+        delete formDataToObj.images
+    }
+
+    const parsed = UpdateCarForApiSchema.safeParse(formDataToObj)
+    if (!parsed.success) {
         return {
-            errors,
+            errors: getZodErrorMessages(parsed.error.format()),
             formState: PublicCarForApiSchema.parse(formDataToObj)
         }
     }
 
-    const newCar = zodParsedObj.data
+    if (!isAuthenticated) {
+        return {
+            formState: PublicCarForApiSchema.parse(formDataToObj),
+            errors: ['Não autenticado']
+        }
+    }
 
-    const updateCarResponse = await authenticatedApiRequest<PublicCarForApiDto> (
+    const newCar = parsed.data
+
+    const updateCarResponse = await authenticatedApiRequest<PublicCarForApiDto>(
         `/car/me/${id}`,
         {
             method: 'PATCH',
             body: JSON.stringify(newCar),
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: { 'Content-Type': 'application/json' }
         }
     )
 
-    if(!updateCarResponse.success) {
+    if (!updateCarResponse.success) {
         return {
             formState: PublicCarForApiSchema.parse(formDataToObj),
             errors: updateCarResponse.errors
         }
     }
 
-    const car = updateCarResponse.data
     updateTag('cars')
 
+
     return {
-        formState: PublicCarForApiSchema.parse(car),
+        formState: PublicCarForApiSchema.parse(updateCarResponse.data),
         errors: [],
         success: true
     }

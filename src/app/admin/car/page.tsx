@@ -1,6 +1,5 @@
 import CarsListAdmin from "@/components/admin/CarListAdmin"
 import { SpinLoader } from "@/components/SpinLoader"
-import { findAllCarsAdmin } from "@/lib/car/queries/admin"
 import { Metadata } from "next"
 import { Suspense } from "react"
 

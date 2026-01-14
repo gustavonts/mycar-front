@@ -39,7 +39,7 @@ export async function CarFeatured(){
                     {
                         width: 1200,
                         height: 720,
-                        src: car.images[0],
+                        src: car.images,
                         alt: car.model,
                         priority: true
                     }

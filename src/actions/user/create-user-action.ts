@@ -1,43 +1,40 @@
 'use server'
 
-import { CreateUserSchema, PublicUserDto, PublicUserSchema } from "@/lib/user/schemas"
+import { CreateUserSchema, PublicUserDto } from "@/lib/user/schemas"
 import { apiRequest } from "@/utils/api-request"
 import { getZodErrorMessages } from "@/utils/get-zod-error-messages"
-import { verifyHoneypotInput } from "@/utils/verify-honeypot-input"
 import { redirect } from 'next/navigation'
 
+type CreateUserFormState = {
+    name: string
+    email: string
+    password: string
+    password2: string
+}
+
 type CreateUserActionState = {
-    user: PublicUserDto
+    user: CreateUserFormState
     errors: string[]
     success: boolean
 }
 
-export async function createUserAction(state: CreateUserActionState, formData: FormData): Promise<CreateUserActionState>{
-
-    const isBot = await verifyHoneypotInput(formData)
-
-    if (isBot) {
-        return {
-            user: state.user,
-            errors: ['nice'],
-            success: false
-        }
-    }
-
-    if(!(formData instanceof FormData)) {
-        return {
-            user: state.user,
-            errors: ['Dados inválidos'],
-            success: false
-        }
-    }
+export async function createUserAction(
+  state: CreateUserActionState,
+  formData: FormData
+): Promise<CreateUserActionState> {
 
     const formObj = Object.fromEntries(formData.entries())
-    const parsedFormData = CreateUserSchema.safeParse(formData)
 
-    if(!parsedFormData.success) {
+    const parsedFormData = CreateUserSchema.safeParse(formObj)
+
+    if (!parsedFormData.success) {
         return {
-            user: PublicUserSchema.parse(formData),
+            user: {
+                name: String(formObj.name ?? ''),
+                email: String(formObj.email ?? ''),
+                password: '',
+                password2: ''
+            },
             errors: getZodErrorMessages(parsedFormData.error.format()),
             success: false
         }
@@ -45,17 +42,18 @@ export async function createUserAction(state: CreateUserActionState, formData: F
 
     const createResponse = await apiRequest<PublicUserDto>('/user', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(parsedFormData.data)
     })
 
-    if(!createResponse.success) { 
+    if (!createResponse.success) { 
         return {
-            user: PublicUserSchema.parse(formObj),
+            user: {
+                ...parsedFormData.data,
+                password2: ''
+            },
             errors: createResponse.errors,
-            success: createResponse.success
+            success: false
         }
     }
 

@@ -90,8 +90,8 @@ export function UpdateUserForm({user}: UpdateUserFormProps) {
                     </Button>
                 </div>
 
-                <div className="flex gap-4 items-center justify-between mt-8">
-                    <a className="flex gap-2 items-center justify-center transition text-red-600 hover:text-red-700" href="#" onClick={showDeleteAccountDialog}>
+                <div className="flex gap-4 items-center justify-center mt-8">
+                    <a className="flex gap-2 items-center justify-center  transition text-red-600 hover:text-red-700" href="#" onClick={showDeleteAccountDialog}>
                         <OctagonXIcon />
                         Apagar Conta
                     </a>

@@ -1,19 +1,28 @@
-import { authenticatedApiRequest } from "@/utils/authenticated-api-request";
-import { PublicUserDto, PublicUserSchema } from "../schemas";
+import { authenticatedApiRequest } from "@/utils/authenticated-api-request"
+import { PublicUserDto, PublicUserSchema } from "../schemas"
 
-export async function getPublicUserFromApi() {
-    const userResponse = await authenticatedApiRequest<PublicUserDto> (
-        `/users/me`,
+export async function getPublicUserFromApi(): Promise<PublicUserDto | undefined> {
+    const userResponse = await authenticatedApiRequest<PublicUserDto>(
+        `/user/me`,
         {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
     )
+    console.log('USER:', userResponse)
 
-    if(!userResponse.success) {
+
+    if (!userResponse.success) {
         return undefined
     }
 
-    return PublicUserSchema.parse(userResponse.data)
+    const parsed = PublicUserSchema.safeParse(userResponse.data)
+
+    if (!parsed.success) {
+        console.error('Erro ao validar usuário:', parsed.error)
+        return undefined
+    }
+
+    return parsed.data
 }

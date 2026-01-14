@@ -79,7 +79,7 @@ export function ManageCarForm(props: ManageCarFormProps) {
     const [contentValue, setContentValue] = useState(publicCar?.description || '')
 
     return (
-        <form action={action} className="mb-16" encType="multipart/form-data">
+        <form action={action} className="mb-16">
             <div className="flex flex-col gap-6">
                 
                 <InputText labelText="ID" name='id' placeholder="ID gerado automaticamente" type="text" defaultValue={formState.id} readOnly disabled={isPending}/>
@@ -104,7 +104,7 @@ export function ManageCarForm(props: ManageCarFormProps) {
 
                 <MarkdownEditor labelText="Descrição" value={contentValue} setValue={setContentValue} textAreaName="description" disabled={isPending}/>
 
-                <ImageUploader disabled={isPending}/>
+                <ImageUploader disabled={isPending}  initialImages={formState.images || []}/>
 
                 {mode === 'update' && (
                     <InputCheckbox  labelText="Ativo?" name='active'  type="checkbox" defaultChecked={formState.active || false} disabled={isPending}/>

@@ -1,5 +1,7 @@
+'use server'
+
 import bcrypt from "bcryptjs";
-import { cookies } from "next/dist/server/request/cookies";
+import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from 'jose'
 import { redirect } from "next/navigation";
 
@@ -33,7 +35,7 @@ export async function createLoginSessionFromApi(jwt: string) {
 
   cookieStore.set(loginCookieName, loginSession, {
     httpOnly: true,
-    secure: true,
+    secure: false,
     sameSite: 'strict',
     expires: expiresAt,
   });
@@ -52,16 +54,19 @@ export async function getLoginSessionForApi() {
 
     if (!jwt) return false
     
-    return verifyJwt(jwt)
+    return jwt
 }
 
 export async function verifyLoginSession() {
-    const jwtPayload = await getLoginSessionForApi()
+    const jwt = await getLoginSessionForApi()
+    if (!jwt) return false
 
-    if(!jwtPayload) return false
+    const payload = await verifyJwt(jwt)
+    if (!payload) return false
 
-    return jwtPayload.username === process.env.LOGIN_USER
+    return payload.username === process.env.LOGIN_USER
 }
+
 
 export async function requireLoginSessionForApiOrRedirect() {
     const isAuthenticated = await getLoginSessionForApi()
