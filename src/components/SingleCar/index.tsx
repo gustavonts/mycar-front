@@ -24,7 +24,7 @@ export async function SingleCar({id}: SingleCarProps) {
                 <CarImages images={car.images} alt={car.model} />
             
                 <CarHeading url={`/car/${car.id}`} as={"h1"}>{car.brand} {car.model} {car.version} {car.year}</CarHeading>
-                <p>{car.user.name} | <CarDate dateTime={car.createdAt} /></p>
+                <p>{car.user?.name ?? 'Usuário inativo'} | <CarDate dateTime={car.createdAt} /></p>
             </header>
             <div className="max-w-3xl mx-auto text-center">
                 <SafeMarkdown markdown={car.description} />

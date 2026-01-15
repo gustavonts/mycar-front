@@ -12,13 +12,13 @@ export async function CarsList() {
     const cars = carsRes.data
 
     return (
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-16 justify-items-center hover:cursor-pointer" >
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {cars.map(car => {
                 const carLink = `/car/${car.id}`
                 return (
                     <a
                         key={car.id} 
-                        className="flex flex-col gap-4 bg-white rounded-2xl w-80 shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden"
+                        className="block flex flex-col gap-4 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden"
                         href={carLink}
                     >
                         {car.images[0] && (

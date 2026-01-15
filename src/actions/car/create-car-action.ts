@@ -26,17 +26,29 @@ export async function createCarAction(prevState: CreateCarActionState, formData:
         }
     }
     const formDataToObj: Record<string, any> = {}
-    for (const [key, value] of formData.entries()) {
-        formDataToObj[key] = value
+
+    for (const key of formData.keys()) {
+        const values = formData.getAll(key)
+
+        if (key === 'images') {
+            formDataToObj[key] = values.map(String)
+        } else {
+            formDataToObj[key] = values[0]
+        }
     }
     
     const zodParsedObj = CreateCarForApiSchema.safeParse(formDataToObj)
 
-    if(!zodParsedObj.success) {
-        const errors = getZodErrorMessages(zodParsedObj.error.format())
+    if (!zodParsedObj.success) {
         return {
-            errors,
-            formState: PublicCarForApiSchema.parse(formDataToObj)
+            errors: getZodErrorMessages(zodParsedObj.error.format()),
+            formState: {
+            ...prevState.formState,
+            ...formDataToObj,
+            images: Array.isArray(formDataToObj.images)
+                ? formDataToObj.images
+                : []
+            }
         }
     }
 
