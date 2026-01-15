@@ -1,4 +1,4 @@
-import z, { email } from "zod";
+import z from "zod";
 
 const CreateUserBase = z.object({
     name: z.string().trim().min(4, 'Nome precisa ter um mínimo de 4 caracteres'),

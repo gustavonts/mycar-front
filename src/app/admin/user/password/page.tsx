@@ -6,7 +6,7 @@ import { Suspense } from "react"
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-    title: 'Trocar senha'
+    title: 'Alterar senha'
 }
 
 export default async function AdminUserPage() {

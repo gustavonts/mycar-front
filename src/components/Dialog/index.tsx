@@ -16,7 +16,6 @@ export function Dialog({isVisible = false, title, content, onCancel, onConfirm, 
 
     function handleCancel() {
         if (disabled) return
-        
         onCancel()
     }
 

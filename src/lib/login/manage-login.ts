@@ -74,7 +74,6 @@ export async function requireLoginSessionForApiOrRedirect() {
     if (!isAuthenticated) {
         redirect('/login')
     }
-    
 }
 
 export async function signJwt(jwtPayload: JwtPayload) {

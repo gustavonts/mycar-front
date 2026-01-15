@@ -17,8 +17,6 @@ export default async function CarsListAdmin() {
 
     if(cars.length <= 0) return <ErrorMessage contentTitle={"Ei "} content={"Crie algum anúncio!"} />
     
-
-    
     return <div className="mb-16">
         {cars.map(car => {
             return <div key={car.id} className={`py-2 px-2 ${car.active ? '' : 'bg-slate-300'} flex gap-2 items-center justify-between hover:bg-slate-200`}>

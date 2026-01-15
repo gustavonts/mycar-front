@@ -71,7 +71,6 @@ export default function MenuAdmin() {
                 Alterar Senha
             </Link>
 
-
             <a onClick={handleLogout} href="#" className={linkClasses}>
                 {isPending && (
                     <>

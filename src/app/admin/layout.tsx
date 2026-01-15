@@ -5,7 +5,7 @@ type AdminCarLayoutprops = {
   children: React.ReactNode
 }
 
-export default async function AdminCarLayout({children,}: Readonly<AdminCarLayoutprops>) {
+export default async function AdminCarLayout({children}: Readonly<AdminCarLayoutprops>) {
   await requireLoginSessionForApiOrRedirect()
 
   return (

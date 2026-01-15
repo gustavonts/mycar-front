@@ -110,7 +110,6 @@ export function UpdateUserForm({user}: UpdateUserFormProps) {
                 isVisible={isDialogVisible}
                 title='Apagar meu usuário'
             />
-
         </div>
     )
 }

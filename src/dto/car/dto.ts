@@ -1,8 +1,8 @@
-import { CarModel } from "@/models/car/car-model";
+import { CarModelFromApi } from "@/models/car/car-model";
 
-export type PublicCar = Omit<CarModel, 'updatedAt'>
+export type PublicCar = Omit<CarModelFromApi, 'updatedAt'>
 
-export const makePartialPublicCar = (car?: Partial<CarModel>): PublicCar => {
+export const makePartialPublicCar = (car?: Partial<CarModelFromApi>): PublicCar => {
     return {
         id: car?.id ?? '',
         brand: car?.brand ?? '',
@@ -17,12 +17,15 @@ export const makePartialPublicCar = (car?: Partial<CarModel>): PublicCar => {
         description: car?.description ?? '',   
         images: car?.images ?? '',            
         active: car?.active ?? false,
-        user: car?.user ?? '',
+        user: car?.user ?? {
+            id: car?.user?.id ?? '',
+            name: car?.user?.name ?? '',
+            email: car?.user?.email ?? ''
+        },
         createdAt: car?.createdAt ?? new Date().toISOString(), 
     }
 }
 
-
-export const makePublicCarFromDb = (car: CarModel): PublicCar => {
+export const makePublicCarFromDb = (car: CarModelFromApi): PublicCar => {
     return makePartialPublicCar(car)
 }

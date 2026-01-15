@@ -4,7 +4,6 @@ import { PublicCarForApiDto, PublicCarForApiSchema, UpdateCarForApiSchema } from
 import { getLoginSessionForApi } from "@/lib/login/manage-login"
 import { authenticatedApiRequest } from "@/utils/authenticated-api-request"
 import { getZodErrorMessages } from "@/utils/get-zod-error-messages"
-import { updateTag } from 'next/cache'
 
 type UpdateCarActionState = {
     formState: PublicCarForApiDto
@@ -72,9 +71,6 @@ export async function updateCarAction(prevState: UpdateCarActionState, formData:
             errors: updateCarResponse.errors
         }
     }
-
-    updateTag('cars')
-
 
     return {
         formState: PublicCarForApiSchema.parse(updateCarResponse.data),

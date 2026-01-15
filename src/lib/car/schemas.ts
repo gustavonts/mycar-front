@@ -1,5 +1,4 @@
 
-import { isUrlOrRelativePath } from '@/utils/isUrlOrRelativePath';
 import sanitizeHtml from 'sanitize-html';
 import { z } from 'zod';
 import { PublicUserSchema } from '../user/schemas';
@@ -90,14 +89,6 @@ const CarBaseSchema = z.object({
     ])
     .default(false)
     .transform(val => val === 'on' || val === 'true' || val === true),
-});
-
-// PostCreateSchema: igual ao base por enquanto
-export const CarCreateSchema = CarBaseSchema;
-
-// PostUpdateSchema: pode incluir campos extras no futuro (ex: id)
-export const CarUpdateSchema = CarBaseSchema.extend({
-  // id: z.string().uuid('ID inválido'),
 });
 
 export const CreateCarForApiSchema = CarBaseSchema.omit({

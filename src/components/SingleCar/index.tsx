@@ -1,4 +1,3 @@
-import Image from "next/image"
 import CarHeading from "../CarHeading"
 import { CarDate } from "../CarDate"
 import { SafeMarkdown } from "../SafeMarkdown"

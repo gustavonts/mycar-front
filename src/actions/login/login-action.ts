@@ -60,7 +60,6 @@ export async function loginAction(state: LoginActionState, formData: FormData) {
     console.log(loginResponse.data)
     console.log('LOGIN RESPONSE COMPLETA:', loginResponse)
 
-
     await createLoginSessionFromApi(loginResponse.data.accessToken)
 
     redirect(`/admin/car`)

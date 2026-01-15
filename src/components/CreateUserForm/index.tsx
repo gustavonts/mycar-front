@@ -65,7 +65,6 @@ export function CreateUserForm() {
                     disabled={isPending}
                     required    
                 />
-
                 <Button disabled={isPending} type='submit' className='mt-4'>
                     <UserRoundIcon />
                     {!isPending && 'Criar Conta'}   

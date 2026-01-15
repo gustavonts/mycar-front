@@ -3,9 +3,7 @@
 import {  CreateCarForApiSchema, PublicCarForApiDto, PublicCarForApiSchema } from "@/lib/car/schemas"
 import { getLoginSessionForApi  } from "@/lib/login/manage-login"
 import { authenticatedApiRequest } from "@/utils/authenticated-api-request"
-
 import { getZodErrorMessages } from "@/utils/get-zod-error-messages"
-import { updateTag } from "next/cache"
 import { redirect } from "next/navigation"
 
 
@@ -71,7 +69,6 @@ export async function createCarAction(prevState: CreateCarActionState, formData:
 
     const createdCar = createCarResponse.data
 
-    updateTag('cars')
     redirect(`/admin/car/${createdCar.id}?created=1`)
 
 }

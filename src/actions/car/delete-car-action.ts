@@ -2,10 +2,7 @@
 
 import { PublicCarForApiDto } from "@/lib/car/schemas"
 import { getLoginSessionForApi, verifyLoginSession } from "@/lib/login/manage-login"
-import { carRepository } from "@/repositories/car"
 import { authenticatedApiRequest } from "@/utils/authenticated-api-request"
-import { error } from "console"
-import { updateTag } from "next/cache"
 
 export async function deleteCarAction(id: string ) {
 
@@ -54,9 +51,6 @@ export async function deleteCarAction(id: string ) {
             error: 'Erro ao apagar o veículo'
         }
     }
-
-    updateTag('cars')
-    updateTag(`car-${id}`)
 
     return {
         error: ''

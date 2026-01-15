@@ -1,7 +1,6 @@
 import { CarsList } from "@/components/CarsList"
 import { SpinLoader } from "@/components/SpinLoader"
 import { Suspense } from "react"
-import { CarFeatured } from "@/components/CarFeatured"
 
 export default async function HomePage() {
   return (
