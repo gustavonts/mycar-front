@@ -1,5 +1,6 @@
 'use server'
 
+import { UserStatusDto } from "@/dto/user/dto";
 import { createLoginSessionFromApi } from "@/lib/login/manage-login";
 import { LoginSchemas } from "@/lib/login/schemas";
 import { apiRequest } from "@/utils/api-request";
@@ -13,6 +14,7 @@ type LoginActionState = {
 
 export async function loginAction(state: LoginActionState, formData: FormData) {
     const allowLogin = Boolean(Number(process.env.ALLOW_LOGIN))
+ 
 
     if(!allowLogin) {
         return {
@@ -34,6 +36,24 @@ export async function loginAction(state: LoginActionState, formData: FormData) {
         email: formObj.email ?? '',
         password: formObj.password ?? ''
     })
+
+    const userStatusResponse  = await apiRequest<UserStatusDto>(
+        `/user/${formEmail}`
+    )
+
+    if (!userStatusResponse.success) {
+        return {
+            email: formEmail,
+            errors: userStatusResponse.errors
+        }
+    }
+
+    if (!userStatusResponse.data.active) {
+        return {
+            email: formEmail,
+            errors: ['Usuário desativado']
+        }
+    }
 
     if(!parsedFormData.success) {
         return {

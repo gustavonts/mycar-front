@@ -1,13 +1,25 @@
 import z from "zod";
 
-const CreateUserBase = z.object({
+const UserBase = z.object({
     name: z.string().trim().min(4, 'Nome precisa ter um mínimo de 4 caracteres'),
     email: z.string().trim().email({message: 'E-mail inválido'}),
+    active: z
+    .union([
+        z.literal('on'),
+        z.literal('true'),
+        z.literal('false'),
+        z.literal(true),
+        z.literal(false),
+        z.literal(null),
+        z.literal(undefined),
+    ])
+    .default(false)
+    .transform(val => val === 'on' || val === 'true' || val === true),
     password:  z.string().trim().min(6, 'Senha precisa ter um mínimo de 6 caracteres'),
     password2: z.string().trim().min(6, 'Senha precisa ter um mínimo de 6 caracteres')
 })
 
-export const CreateUserSchema = CreateUserBase.refine(
+export const CreateUserSchema = UserBase.refine(
     data => {
         return data.password === data.password2
     },
@@ -26,7 +38,8 @@ export const CreateUserSchema = CreateUserBase.refine(
 export const PublicUserSchema = z.object({
     id: z.string().default(''),
     name: z.string().default(''),
-    email: z.string().default('')
+    email: z.string().default(''),
+    active: z.boolean().optional().default(false)
 })
 
 export const UpdatePasswordSchema = z.object({
@@ -48,7 +61,7 @@ export const UpdatePasswordSchema = z.object({
     }
 })
 
-export const UpdateUserSchema = CreateUserBase.omit({
+export const UpdateUserSchema = UserBase.omit({
     password: true,
     password2: true
 }).extend({})

@@ -17,7 +17,9 @@ export function DeleteCarbutton({id, brand, model}: DeleteCarbuttonProps) {
     const [isPending, startTransition] = useTransition()
     const [showDialog, setShowDialog] = useState(false)
 
-    function handleClick() {
+    function handleClick(e: React.MouseEvent) {
+        e.preventDefault()
+        e.stopPropagation() 
         setShowDialog(true)
     }
 

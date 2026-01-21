@@ -1,7 +1,7 @@
 'use client'
 
 import { logoutAction } from "@/actions/login/logout-action";
-import { CarFrontIcon, CircleXIcon, Edit3Icon, HourglassIcon, HouseIcon, LogOutIcon, MenuIcon, PlusIcon, SquareRoundCornerIcon, UserPenIcon } from "lucide-react";
+import { CarFrontIcon, CircleXIcon, Edit3Icon, HourglassIcon, HouseIcon, LogOutIcon, MenuIcon, PlusIcon, SquareRoundCornerIcon, UserPenIcon, Users2Icon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
@@ -66,9 +66,9 @@ export default function MenuAdmin() {
                 <UserPenIcon />
                 Meus dados
             </Link>
-            <Link href="/admin/user/password" className={linkClasses}>
-                <Edit3Icon />
-                Alterar Senha
+            <Link href="/admin/users" className={linkClasses}>
+                <Users2Icon />
+                Usuários - Em Desenvolvimento
             </Link>
 
             <a onClick={handleLogout} href="#" className={linkClasses}>

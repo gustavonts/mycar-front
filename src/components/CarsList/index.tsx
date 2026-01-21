@@ -1,12 +1,15 @@
 import { findAllPublicCarsFromApiCached } from "@/lib/car/queries/public"
 import CarCoverImage from "../CarCoverImage"
 import { CarSumary } from "../CarSumary"
+import ErrorMessage from "../ErrorMessage"
 
 export async function CarsList() {
     const carsRes = await findAllPublicCarsFromApiCached()
 
     if (!carsRes.success || carsRes.data.length === 0) {
-        return null
+        return (
+            <ErrorMessage contentTitle="Que Pena!" content='Ainda não temos nenhum anúncio!' />
+        )
     }
 
     const cars = carsRes.data

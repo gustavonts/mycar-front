@@ -1,6 +1,6 @@
 'use client'
 
-import { OctagonXIcon, UserPenIcon } from "lucide-react"
+import { Edit3Icon, OctagonXIcon, UserPenIcon } from "lucide-react"
 import { InputText } from "../../inputs/InputText"
 import { Button } from "../../Button"
 import { Dialog } from "../../Dialog"
@@ -10,6 +10,8 @@ import { PublicUserDto } from "@/lib/user/schemas"
 import { updateUserAction } from "@/actions/user/update-user-action"
 import { toast } from "react-toastify"
 import { deleteUserAction } from "@/actions/user/delete-user-action"
+import { useRouter } from 'next/navigation'
+import { InputCheckbox } from "@/components/inputs/InputCheckbox"
 
 type UpdateUserFormProps = {
     user: PublicUserDto
@@ -25,6 +27,7 @@ export function UpdateUserForm({user}: UpdateUserFormProps) {
     const [isTransitioning, startTransition] = useTransition()
     const safetyDelay = 10000
     const isElementsDisabled = isTransitioning || isPending
+    const router = useRouter()
 
     function showDeleteAccountDialog(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
         e.preventDefault()
@@ -35,20 +38,20 @@ export function UpdateUserForm({user}: UpdateUserFormProps) {
         })
     }
 
-    function handleDeleteUserAccount() {
-        startTransition(async () => {
-        if (!confirm('Confirma só mais uma vez que quer continuar')) return;
+    // function handleDeleteUserAccount() {
+    //     startTransition(async () => {
+    //     if (!confirm('Confirma só mais uma vez que quer continuar')) return;
 
-        const result = await deleteUserAction();
+    //     const result = await deleteUserAction();
 
-        if (result.errors) {
-            toast.dismiss();
-            result.errors.forEach(e => toast.error(e));
-        }
+    //     if (result.errors) {
+    //         toast.dismiss();
+    //         result.errors.forEach(e => toast.error(e));
+    //     }
 
-        setIsDialogVisible(false);
-        });
-    }
+    //     setIsDialogVisible(false);
+    //     });
+    // }
 
     useEffect(() => {
         toast.dismiss();
@@ -83,6 +86,15 @@ export function UpdateUserForm({user}: UpdateUserFormProps) {
                     defaultValue={state.user.email}
                 />
 
+                <InputCheckbox  labelText="Ativo?" name='active'  type="checkbox" defaultChecked={state.user.active} disabled={isElementsDisabled}/>
+
+                <div className="flex items-center justify-center mt-4">
+                    <Button size='md' variant="ghost" disabled={isElementsDisabled} type='button' onClick={() => router.push('/admin/user/password') }>
+                        <Edit3Icon />
+                        Alterar Senha
+                    </Button>
+                </div>
+
                 <div className="flex items-center justify-center mt-4">
                     <Button size='md' disabled={isElementsDisabled} type='submit'>
                         <UserPenIcon />
@@ -90,15 +102,16 @@ export function UpdateUserForm({user}: UpdateUserFormProps) {
                     </Button>
                 </div>
 
-                <div className="flex gap-4 items-center justify-center mt-8">
+                {/* <div className="flex gap-4 items-center justify-center mt-8">
                     <a className="flex gap-2 items-center justify-center  transition text-red-600 hover:text-red-700" href="#" onClick={showDeleteAccountDialog}>
                         <OctagonXIcon />
                         Apagar Conta
                     </a>
-                </div>
+                </div> */}
+
            </form>
 
-            <Dialog 
+            {/* <Dialog 
                 content={
                     <p>
                         Ao apagar meu usuário, meus dados e todos os meus anúncios também serão apagados. Essa ação é irreversível. Em alguns segundos os botões serão liberados. Clique em <b>OK</b> para confirmar ou{' '}<b>Cancelar</b> para fechar essa janela.
@@ -109,7 +122,7 @@ export function UpdateUserForm({user}: UpdateUserFormProps) {
                 onConfirm={handleDeleteUserAccount}
                 isVisible={isDialogVisible}
                 title='Apagar meu usuário'
-            />
+            /> */}
         </div>
     )
 }

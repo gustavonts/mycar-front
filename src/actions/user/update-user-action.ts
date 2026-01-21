@@ -74,6 +74,11 @@ export async function updateUserAction(state: UpdateUserActionState, formData: F
         redirect('/login?userChanged=1');
     }
 
+    if (updateResponse.data.active === false) {
+        await deleteLoginSession();
+        redirect('/login?userChanged=1');
+    }
+
     return {
         user: PublicUserSchema.parse(updateResponse.data),
         errors: [],

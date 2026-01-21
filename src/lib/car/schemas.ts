@@ -113,11 +113,11 @@ export const PublicCarForApiSchema = CarBaseSchema.extend({
     color: z.string().default(''),
     description: z.string().default(''),
     images: z.array(z.string()).default([]),
-    user: PublicUserSchema.optional().default({
+    user: PublicUserSchema.default({
       id: '',
       email: '',
-      name: ''
-
+      name: '',
+      active: false
     }),
     createdAt: z.string().default(''),
 })
