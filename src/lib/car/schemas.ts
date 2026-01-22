@@ -7,12 +7,12 @@ const CarBaseSchema = z.object({
   brand: z
     .string()
     .trim()
-    .min(3, 'Marca deve ter, no mínimo, 3 caracteres')
+    .min(1, 'Marca deve ter, no mínimo, 1 caracteres')
     .max(30, 'Marca deve ter um máximo de 30 caracteres'),
   model: z
     .string()
     .trim()
-    .min(3, 'Modelo deve ter, no mínimo, 3 caracteres')
+    .min(1, 'Modelo deve ter, no mínimo, 1 caracteres')
     .max(30, 'Modelo deve ter um máximo de 30 caracteres'),
   version: z
     .string()
@@ -22,8 +22,8 @@ const CarBaseSchema = z.object({
   year: z
     .string()
     .trim()
-    .min(3, 'Ano deve ter, no mínimo, 3 caracteres')
-    .max(10, 'Ano deve ter um máximo de 10 caracteres'),
+    .min(4, 'Ano deve ter, no mínimo, 4 caracteres')
+    .max(4, 'Ano deve ter um máximo de 10 caracteres'),
   plate: z
     .string()
     .trim()
@@ -32,9 +32,7 @@ const CarBaseSchema = z.object({
     .nullable(),
   fuel: z
     .string()
-    .trim()
-    .min(3, 'Combustivel deve ter, no mínimo, 3 caracteres')
-    .max(15, 'Combustivel deve ter um máximo de 15 caracteres'),
+    .trim(),
   price: z
     .string()
     .trim()
@@ -43,12 +41,11 @@ const CarBaseSchema = z.object({
   mileage: z
     .string()
     .trim()
-    .min(3, 'Quilometragem deve ter, no mínimo, 3 caracteres')
     .max(10, 'Quilometragem deve ter um máximo de 10 caracteres'),
   color: z
     .string()
     .trim()
-    .min(3, 'Cor deve ter, no mínimo, 3 caracteres')
+    .min(1, 'Cor deve ter, no mínimo, 1 caracteres')
     .max(20, 'Cor deve ter um máximo de 20 caracteres'),
   description: z.preprocess(
     (val) => (val === undefined || val === null ? '' : String(val)),
@@ -57,7 +54,7 @@ const CarBaseSchema = z.object({
   user: z
     .string()
     .trim()
-    .min(2, 'User precisa de um mínimo de 4 caracteres')
+    .min(2, 'User precisa de um mínimo de 2 caracteres')
     .max(100, 'Nome do user não deve ter mais que 100 caracteres'),
   images: z
   .union([

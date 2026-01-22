@@ -3,6 +3,7 @@
 import { PublicCarForApiDto } from "@/lib/car/schemas"
 import { getLoginSessionForApi, verifyLoginSession } from "@/lib/login/manage-login"
 import { authenticatedApiRequest } from "@/utils/authenticated-api-request"
+import { revalidatePath } from "next/cache"
 
 export async function deleteCarAction(id: string ) {
 
@@ -22,7 +23,7 @@ export async function deleteCarAction(id: string ) {
     }
 
     const carResponse = await authenticatedApiRequest<PublicCarForApiDto> (
-        `/car/me/${id}`,
+        `/car/${id}`,
         {
             headers: {
                 'Content-Type': 'application/json'
@@ -30,14 +31,17 @@ export async function deleteCarAction(id: string ) {
         }
     )
 
+
+    
+
     if (!carResponse.success) {
         return {
             error: 'Erro ao encontrar o veículo'
         }
-    }
+    } 
 
     const deleteCarResponse = await authenticatedApiRequest<PublicCarForApiDto> (
-        `/car/me/${id}`,
+        `/car/${id}`,
         {
             method: 'DELETE',
             headers: {
@@ -50,6 +54,8 @@ export async function deleteCarAction(id: string ) {
         return {
             error: 'Erro ao apagar o veículo'
         }
+    } else {
+        revalidatePath('/admin')
     }
 
     return {

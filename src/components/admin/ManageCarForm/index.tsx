@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { updateCarAction } from "@/actions/car/update-car-action";
 import { useRouter, useSearchParams } from "next/navigation";
 import { PublicCarForApiDto, PublicCarForApiSchema } from "@/lib/car/schemas";
+import { SelectField } from "@/components/SelectField";
 
 type ManageCarFormUpdateProps = {
     mode: 'update'
@@ -91,15 +92,64 @@ export function ManageCarForm(props: ManageCarFormProps) {
 
                 <InputText labelText="Versão" name='version' placeholder="Digite a versão do veículo" type="text" defaultValue={formState.version} disabled={isPending}/>
 
-                <InputText labelText="Ano" name='year' placeholder="Digite o ano do veículo" type="text" defaultValue={formState.year} disabled={isPending}/>
+                <InputText
+                    labelText="Ano"
+                    placeholder="Digite o ano do veículo"
+                    name="year"
+                    type="text"
+                    defaultValue={formState.year}
+                    inputMode="numeric"
+                    disabled={isPending}
+                    maxLength={4}
+                    onChange={(e) => {
+                        e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '')
+                    }}
+                />
 
-                <InputText labelText="Placa" name='plate' placeholder="Digite a placa do veículo" type="text" defaultValue={formState.plate ?? ""} disabled={isPending}/>
+                <InputText labelText="Placa" name='plate' placeholder="Digite a placa do veículo" type="text" maxLength={8} defaultValue={formState.plate ?? ""} disabled={isPending}/>
 
-                <InputText labelText="Combustível" name='fuel' placeholder="Digite o tipo de combustível do veículo" type="text" defaultValue={formState.fuel} disabled={isPending}/>
+                <SelectField
+                    labelText="Combustível"
+                    name="fuel"
+                    defaultValue={formState.fuel}
+                    disabled={isPending}
+                    options={[
+                        { label: 'Gasolina', value: 'gasolina' },
+                        { label: 'Etanol', value: 'etanol' },
+                        { label: 'Flex', value: 'flex' },
+                        { label: 'Diesel', value: 'diesel' },
+                        { label: 'Elétrico', value: 'eletrico' },
+                        { label: 'Híbrido', value: 'hibrido' },
+                    ]}
+                />
 
-                <InputText labelText="Preço" name='price' placeholder="Digite o preço do veículo" type="text" defaultValue={formState.price} disabled={isPending}/>
+                <InputText
+                    labelText="Preço"
+                    placeholder="Digite o preço do veículo"
+                    name="price"
+                    type="text"
+                    inputMode="numeric"
+                    disabled={isPending}
+                    defaultValue={formState.price}
+                    maxLength={9}
+                    onChange={(e) => {
+                        e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '')
+                    }}
+                />
 
-                <InputText labelText="Quilometragem" name='mileage' placeholder="Digite a quilometragem do veículo" type="text" defaultValue={formState.mileage} disabled={isPending}/>
+                <InputText
+                    labelText="Quilometragem"
+                    placeholder="Digite a quilometragem do veículo"
+                    name="mileage"
+                    type="text"
+                    inputMode="numeric"
+                    defaultValue={formState.mileage}
+                    disabled={isPending}
+                    maxLength={9}
+                    onChange={(e) => {
+                        e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '')
+                    }}
+                />
 
                 <InputText labelText="Cor" name='color' placeholder="Digite a cor do veículo" type="text" defaultValue={formState.color} disabled={isPending}/>
 

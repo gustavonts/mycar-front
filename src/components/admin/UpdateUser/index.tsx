@@ -1,6 +1,6 @@
 import ErrorMessage from "@/components/ErrorMessage"
 import { UpdateUserForm } from "@/components/admin/UpdateUserForm"
-import { getPublicUserFromApi } from "@/lib/user/api/get-user"
+import { getPublicUserFromApi } from "@/lib/user/queries/get-user"
 
 export default async function UpdateUser() {
     const user = await getPublicUserFromApi()

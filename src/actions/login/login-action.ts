@@ -37,7 +37,7 @@ export async function loginAction(state: LoginActionState, formData: FormData) {
         password: formObj.password ?? ''
     })
 
-    const userStatusResponse  = await apiRequest<UserStatusDto>(
+    const userStatusResponse = await apiRequest<UserStatusDto>(
         `/user/${formEmail}`
     )
 

@@ -20,13 +20,15 @@ export default async function CarsListAdmin() {
     return <div className="mb-16">
         {cars.map(car => {
             return (
-                <Link key={car.id} href={`/admin/car/${car.id}`}> 
-                    <div className={`py-2 px-2 ${car.active ? '' : 'bg-slate-300'} flex gap-2 items-center justify-between hover:bg-slate-200 hover:cursor-pointer`}>
-                        {car.brand} {car.model} - Placa: {car.plate}
-                        {!car.active && <span className="text-xs text-slate-600 italic">Inativo</span>}
-                        <DeleteCarbutton id={car.id} brand={car.brand} model={car.model} />
-                    </div>
-                </Link>
+                <div key={car.id} className={`py-2 px-2 ${car.active ? '' : 'bg-slate-300'} flex gap-2 items-center justify-between bg-slate-200 rounded m-1 hover:bg-slate-300 hover:cursor-pointer`}>
+                    <Link href={`/admin/car/${car.id}`}> 
+                        <div >
+                            {car.brand} {car.model} - Placa: {car.plate} {car.user.name}
+                            {!car.active && <span className="text-xs text-slate-600 italic">Inativo</span>}
+                        </div>
+                    </Link>
+                    <DeleteCarbutton id={car.id} brand={car.brand} model={car.model} />
+                </div>
             )
         })}
     </div>

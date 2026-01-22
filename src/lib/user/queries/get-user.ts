@@ -26,3 +26,18 @@ export async function getPublicUserFromApi(): Promise<PublicUserDto | undefined>
 
     return parsed.data
 }
+
+export const findAllUsersFromApiAdmin = async () => {
+    const usersResponse = await authenticatedApiRequest<PublicUserDto[]> (
+        `/user/all/users`,
+    
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            cache: 'no-store'
+        }
+    )
+
+    return usersResponse
+}
